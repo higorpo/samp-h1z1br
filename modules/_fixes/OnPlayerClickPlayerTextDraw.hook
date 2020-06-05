@@ -1,0 +1,6 @@
+public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
+{
+	textdrawPlayerClick(playerid, playertextid);
+	inv_PlayerClickPlayerTextdraw(playerid, playertextid);
+	return 1;
+}

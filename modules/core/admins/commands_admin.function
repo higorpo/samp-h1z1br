@@ -1,0 +1,209 @@
+ /*
+
+
+
+
+
+
+
+                                                 _       _     _    _________     _
+                                                | |     | |   / |  |______  /    / |
+                                                | |     | |  /  |        / /    /  |
+                                                | |     | | / / |       / /    / / |
+                                                | |_____| |/_/| |      / /    /_/| |
+                                                |  _____  |   | |     / /        | |
+                                                | |     | |   | |    / /         | |
+                                                | |     | |   | |   / /          | |
+                                                | |     | | __| |__/ /______   __| |__
+                                                |_|     |_||______/_________| |_______|
+
+                                                            Battle Royale
+
+*/
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+/* Includes necessárias para o funcionamento do script */
+#include <YSI\y_hooks>
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+hook OnGameModeInit()
+{
+    Command_AddAltNamed("limparchat", "lc");
+    Command_AddAltNamed("setvida", "sv");
+    Command_AddAltNamed("dararma", "da");
+    return 1;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+/* Comandos administrativos */
+YCMD:acmds(playerid, params[], help)
+{
+    #pragma unused help
+    if(pInfo[playerid][admin] == 0) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não tem permissão!");
+    return 1;
+}
+
+YCMD:limparchat(playerid, params[], help)
+{
+    #pragma unused help
+    if(pInfo[playerid][admin] == 0)
+    {
+        foreach(new i : Player) 
+        {
+            ClearChat(i, 150);
+        }
+
+        SendClientMessage(playerid, Verde, "| INFO | Você limpou seu chat com sucesso!");
+        return 0;
+    }
+
+    if(adminInfo[playerid][logado] == false) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não está logado como admin!");
+   
+    foreach(new i : Player) 
+    {
+        ClearChat(i, 150);
+    }
+
+    SendClientMessageToAllEx(Azul, "| H1Z1 | O(A) %s %s limpou o chat de todos os jogadores online.", getAdmin(playerid), GetPlayerName(playerid));
+    SendClientMessage(playerid, Verde, "| INFO | Chat limpo com sucesso!");
+    return 1;
+}
+
+
+
+// funções pro player
+YCMD:kick(playerid, params[], help)
+{
+    #pragma unused help
+    if(pInfo[playerid][admin] == 0) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não tem permissão!");
+    if(adminInfo[playerid][logado] == false) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não está logado como admin!");
+
+    new id_player, motivo[50];
+    if(sscanf(params, "us[30]", id_player, motivo)) return SendClientMessage(playerid, Vermelho, "| ERRO | Digite /Kick [ ID ][ Motivo ]");
+    if(id_player == playerid) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não pode se auto-kickar!");
+    if(strlen(motivo) > 30) return SendClientMessage(playerid, Vermelho, "| ERRO | Motivo muito grande!");
+    if(!IsPlayerConnected(playerid)) return SendClientMessage(playerid, Vermelho, "| ERRO | O player não está conectado!");
+    if(pInfo[id_player][admin] > 0) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não pode kickar admin!");
+
+    HideLogin(id_player, 0);
+    HideMenu(id_player, 1);
+    ClearChat(id_player, 130);
+    SendClientMessageToAllEx(Vermelho, "| H1Z1 | O(A) %s %s kickou o(a) jogador(a) %s, motivo ( %s )", getAdmin(playerid), GetPlayerName(playerid), GetPlayerName(id_player), motivo);
+    SendClientMessageEx(id_player, Branco, "| INFO | Você foi kickado do servidor pelo motivo ( %s )", motivo);
+    SendClientMessage(playerid, Verde, "| INFO | Jogador kickado com sucesso!");
+
+    Kick(id_player);
+    return 1;
+}
+
+YCMD:ir(playerid, params[], help)
+{
+    #pragma unused help
+    new id_player, String[38 + MAX_PLAYERS + 3 + 10];
+    if(pInfo[playerid][admin] < 1) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não tem permissão.");
+    if(adminInfo[playerid][logado] == false) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não está logado como admin!");
+    if(sscanf(params, "u", id_player)) return SendClientMessage(playerid, Vermelho, "| INFO | Digite /Ir [ ID ]");
+    if(!IsPlayerConnected(id_player)) return SendClientMessage(playerid, Vermelho, "| ERRO | O(A) jogador(a) não está conectado!");
+    if(pInfo[id_player][logado] == false) return SendClientMessage(playerid, Vermelho, "| ERRO | O(A) Jogador(a) não spawnou!");
+    if(playerid == id_player) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não pode teleportar à você mesmo!");
+    new Float:Pos[3], worldid;
+    GetPlayerPos(id_player, Pos[0], Pos[1], Pos[2]);
+    worldid = GetPlayerVirtualWorld(id_player);
+
+    if(IsPlayerInAnyVehicle(playerid))
+    {
+        new carroid = GetPlayerVehicleID(playerid);
+        SetVehiclePos(carroid, Pos[0], Pos[1], Pos[2]);
+        format(String, sizeof(String), "| H1Z1 | O(A) %s %s veio até você!", getAdmin(playerid), GetPlayerName(playerid));
+        SendClientMessage(id_player, Azul, String);
+        format(String, sizeof(String), "| INFO | Você foi até o jogador(a) %s[%d].", GetPlayerName(id_player), id_player);
+        SendClientMessage(playerid, Branco, String);
+        SetPlayerVirtualWorld(playerid, worldid);
+        return 1;
+    }
+    SetPlayerPos(playerid, Pos[0]+2, Pos[1]+2, Pos[2]+2);
+    format(String, sizeof(String), "| H1Z1 | O(A) %s %s veio até você!", getAdmin(playerid), GetPlayerName(playerid));
+    SendClientMessage(id_player, Azul, String);
+    format(String, sizeof(String), "| INFO | Você foi até o(a) jogador(a) %s[%d].", GetPlayerName(id_player), id_player);
+    SendClientMessage(playerid, Branco, String);
+    SetPlayerVirtualWorld(playerid, worldid);
+    return 1;
+}
+
+YCMD:dararma(playerid, params[], help)
+{
+    #pragma unused help
+    if(pInfo[playerid][admin] < 3) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não tem permissão!");
+    if(adminInfo[playerid][logado] == false) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não está logado como admin!");
+
+    new id_player, armaid, municao;
+    if(sscanf(params, "udd", id_player, armaid, municao)) return SendClientMessage(playerid, Vermelho, "| ERRO | Digite /DarArma(da) [ ID ][ Arma ID ][ Munição ]");
+    if(!IsPlayerConnected(playerid)) return SendClientMessage(playerid, Vermelho, "| ERRO | O player não está conectado!");
+    if(armaid > 46) return SendClientMessage(playerid, Vermelho, "| ERRO | Id invalido!");
+    if(pInfo[playerid][admin] != 4) if(municao < 0 || municao > 50) return SendClientMessage(playerid, Vermelho, "| ERRO | Munição invalida, a munição deve estar entre 0 a 50.");
+
+    GivePlayerWeapon(id_player, armaid, municao);
+    SendClientMessage(playerid, Verde, "| INFO | Arma entregada ao player com sucesso!");
+    SendClientMessageEx(id_player, Branco, "| INFO | O(A) %s %s lhe deu uma arma!", getAdmin(playerid), GetPlayerName(playerid));
+    return 1;
+}
+
+YCMD:setvida(playerid, params[], help)
+{
+    #pragma unused help
+    if(pInfo[playerid][admin] < 3) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não tem permissão!");
+    if(adminInfo[playerid][logado] == false) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não está logado como admin!");
+
+    new id_player, health;
+    if(sscanf(params, "ud", id_player, health)) return SendClientMessage(playerid, Vermelho, "| ERRO | Digite /SetVida(sv) [ ID ][ Vida ]");
+    if(!IsPlayerConnected(playerid)) return SendClientMessage(playerid, Vermelho, "| ERRO | O player não está conectado!");
+
+    SetPlayerHealth(id_player, health);
+    pInfo[id_player][vida] = health;
+    SendClientMessageEx(id_player, Azul, "| H1Z1 | O(A) %s %s setou sua vida pra %d.", getAdmin(playerid), GetPlayerName(playerid), health);
+    SendClientMessage(playerid, Verde, "| INFO | Vida do player alterada com sucesso!");
+    return 1;
+}
+
+YCMD:espiar(playerid, params[], help)
+{
+    #pragma unused help
+    if(pInfo[playerid][admin] == 0) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não tem permissão!");
+    if(adminInfo[playerid][logado] == false) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não está logado como admin!");
+   
+    new id_player;
+    if(sscanf(params, "d", id_player)) return SendClientMessage(playerid, Vermelho, "| ERRO | Digite /Espiar [ ID ]");
+    if(playerid == id_player) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não pode se auto-espiar.");
+    if(!IsPlayerConnected(playerid)) return SendClientMessage(playerid, Vermelho, "| ERRO | O(A) jogador não está conectado!");
+
+    TogglePlayerSpectating(playerid, 1);
+    SendClientMessageEx(playerid, Verde, "| INFO | Você está espiando o(a) jogador(a) %s.", GetPlayerName(id_player));
+    adminInfo[playerid][espiando] = true;
+
+    if(IsPlayerInAnyVehicle(id_player)) PlayerSpectateVehicle(playerid, GetPlayerVehicleID(id_player));
+    else PlayerSpectatePlayer(playerid, id_player);
+    return 1;
+}
+
+YCMD:espiaroff(playerid, params[], help)
+{
+    #pragma unused params, help
+    if(pInfo[playerid][admin] == 0) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não tem permissão!");
+    if(adminInfo[playerid][logado] == false) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não está logado como admin!");
+
+    if(adminInfo[playerid][espiando] == false) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não está espiando ninguém.");
+    TogglePlayerSpectating(playerid, false);
+    SendClientMessage(playerid, Verde, "| INFO | Você parou de espiar o(a) jogador(a) com sucesso!");
+    adminInfo[playerid][espiando] = false;
+    return 1;
+}

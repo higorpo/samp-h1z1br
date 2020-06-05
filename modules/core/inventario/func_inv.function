@@ -1,0 +1,974 @@
+ /*
+
+
+
+
+
+
+
+												 _       _     _    _________     _
+												| |     | |   / |  |______  /    / |
+												| |     | |  /  |        / /    /  |
+												| |     | | / / |       / /    / / |
+												| |_____| |/_/| |      / /    /_/| |
+												|  _____  |   | |     / /        | |
+												| |     | |   | |    / /         | |
+												| |     | |   | |   / /          | |
+												| |     | | __| |__/ /______   __| |__
+												|_|     |_||______/_________| |_______|
+
+															Battle Royale
+
+*/
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+@TimerOneSecond()
+{
+	for(new i = 0; i < MAX_ITENS_WORLD; i++)
+	    if(ItensWorld[i][world_active])
+   		{
+     		ItensWorld[i][world_timer]--;
+                
+  			if(ItensWorld[i][world_timer] == 0)
+				DeleteItemWorld(i);
+		}
+
+	for(new playerid=0; playerid < MAX_PLAYERS; playerid++)
+    {
+        new weapons[13][2];
+        
+        for (new s = 0; s <= 12; s++)
+		    GetPlayerWeaponData(playerid, s, weapons[s][0], weapons[s][1]);
+
+        for(new s = 3; s < 7; s ++)
+	        if(pCharacter[playerid][charSlot][s] == 5)
+			    if(weapons[8][0] == 18 && weapons[8][1] == 0)
+			        RemoveItemFromCharacter(playerid, s);
+
+        for(new s = 3; s < 7; s ++)
+	        if(pCharacter[playerid][charSlot][s] == 17)
+			    if(weapons[8][0] == 16 && weapons[8][1] == 0)
+			        RemoveItemFromCharacter(playerid, s);
+
+		if(pCharacter[playerid][charSlot][1] != 0)
+		    if(GetPlayerArmourEx(playerid) > 0.0)
+			    pCharacter[playerid][charArmourStatus] = GetPlayerArmourEx(playerid);
+			else
+			    RemoveItemFromCharacter(playerid, 1);
+	}
+}
+
+//----------------------------------------------------------
+
+stock AddItemInWord(Float:x, Float:y, Float:z, itemid, amount, Float:armourstatus = 0.0)
+{
+    ItensWorld[LastItemID][world_timer] = TIMER_ITEM_WORLD;
+	ItensWorld[LastItemID][world_itemid] = itemid;
+	ItensWorld[LastItemID][world_model] = Itens[itemid][item_modelo];
+	ItensWorld[LastItemID][world_amount] = amount;
+	ItensWorld[LastItemID][world_position][0] = x;
+	ItensWorld[LastItemID][world_position][1] = y;
+	ItensWorld[LastItemID][world_position][2] = z;
+
+	if(itemid == 6)
+	    ItensWorld[LastItemID][world_armourstatus] = armourstatus;
+	
+    ItensWorld[LastItemID][world_object] = CreateObject(ItensWorld[LastItemID][world_model], x, y, z-0.90, -90,0,0);
+
+	if(amount > 1)
+		format(invString, sizeof(invString), "%s (%d)", Itens[itemid][item_nome], amount);
+	else
+		format(invString, sizeof(invString), "%s", Itens[itemid][item_nome]);
+		
+	ItensWorld[LastItemID][world_3dtext] = Create3DTextLabel(invString, -1, x, y,z-0.90, 5.0, 0, 0);
+	
+	ItensWorld[LastItemID][world_active] = true;
+
+	if(LastItemID == MAX_ITENS_WORLD-1)
+		LastItemID = 0;
+	else
+	    LastItemID++;
+}
+
+stock AddItem(playerid, itemid, amount, Float:armorstatus = 100.0)
+{
+	new bool:sucess = false;
+	
+	for(new i = 0; i < MAX_INVENTORY_SLOTS; i ++)
+    {
+		if(pInventory[playerid][invSlot][i] == itemid && Itens[pInventory[playerid][invSlot][i]][item_limite] > 1 && pInventory[playerid][invSlotAmount][i] != Itens[pInventory[playerid][invSlot][i]][item_limite])
+        {
+            new check = amount + pInventory[playerid][invSlotAmount][i];
+
+			if(check > Itens[pInventory[playerid][invSlot][i]][item_limite])
+			{
+                pInventory[playerid][invSlotAmount][i] = Itens[itemid][item_limite];
+
+                for(new a = 0; a < MAX_INVENTORY_SLOTS; a ++)
+                {
+                	if(pInventory[playerid][invSlot][a] == 0)
+                	{
+                    	pInventory[playerid][invSlot][a] = itemid;
+						new resto = Itens[itemid][item_limite] - check;
+                    	pInventory[playerid][invSlotAmount][a] = resto*-1;
+                    	
+                    	if(Player[playerid][inInventory])
+						{
+	                    	PlayerTextDrawSetPreviewModel(playerid, inventario_index[playerid][a], Itens[itemid][item_modelo]);
+	 						PlayerTextDrawSetPreviewRot(playerid, inventario_index[playerid][a], Itens[itemid][item_previewrot][0], Itens[itemid][item_previewrot][1], Itens[itemid][item_previewrot][2], Itens[itemid][item_previewrot][3]);
+
+							PlayerTextDrawHide(playerid, inventario_index[playerid][a]);
+	            			PlayerTextDrawShow(playerid, inventario_index[playerid][a]);
+						}
+						
+						break;
+					}
+				}
+			}
+			else
+			{
+            	pInventory[playerid][invSlotAmount][i] += amount;
+            	
+            	if(Player[playerid][inInventory])
+				{
+				    if(pInventory[playerid][invSelectedSlot] == i)
+					{
+						if(pInventory[playerid][invSlotAmount][i] > 1)
+							format(invString, sizeof(invString), "Quantidade: %d", pInventory[playerid][invSlotAmount][i]);
+						else
+							invString = " ";
+
+						PlayerTextDrawSetString(playerid, inventario_description[playerid][3], invString);
+
+					    PlayerTextDrawHide(playerid, inventario_description[playerid][3]);
+					    PlayerTextDrawShow(playerid, inventario_description[playerid][3]);
+					}
+				}
+			}
+
+			sucess = true;
+         	break;
+		}
+	}
+	
+	if(sucess)
+	    return true;
+	    
+	for(new i = 0; i < MAX_INVENTORY_SLOTS; i ++)
+ 	{
+		if(pInventory[playerid][invSlot][i] == 0)
+	    {
+		    pInventory[playerid][invSlot][i] = itemid;
+	        pInventory[playerid][invSlotAmount][i] = amount;
+
+	        if(itemid == 6)
+	        	pInventory[playerid][invArmourStatus][i] = armorstatus;
+
+	        if(Player[playerid][inInventory])
+			{
+			    PlayerTextDrawSetPreviewModel(playerid, inventario_index[playerid][i], Itens[itemid][item_modelo]);
+				PlayerTextDrawSetPreviewRot(playerid, inventario_index[playerid][i], Itens[itemid][item_previewrot][0], Itens[itemid][item_previewrot][1], Itens[itemid][item_previewrot][2], Itens[itemid][item_previewrot][3]);
+
+	            PlayerTextDrawHide(playerid, inventario_index[playerid][i]);
+	            PlayerTextDrawShow(playerid, inventario_index[playerid][i]);
+			}
+			
+			break;
+		}
+	}
+	
+	return true;
+}
+
+//----------------------------------------------------------
+
+stock SplitItem(playerid, slot)
+{
+    new result = pInventory[playerid][invSlotAmount][slot]/2;
+
+	for(new i = 0; i < MAX_INVENTORY_SLOTS; i ++)
+        if(pInventory[playerid][invSlot][i] == 0)
+        {
+            pInventory[playerid][invSlotAmount][slot] = pInventory[playerid][invSlotAmount][slot]/2;
+            
+            pInventory[playerid][invSlot][i] = pInventory[playerid][invSlot][slot];
+            pInventory[playerid][invSlotAmount][i] = result;
+            
+    		PlayerTextDrawHide(playerid, inventario_index[playerid][i]);
+    		PlayerTextDrawSetPreviewModel(playerid, inventario_index[playerid][i], Itens[pInventory[playerid][invSlot][i]][item_modelo]);
+ 			PlayerTextDrawSetPreviewRot(playerid, inventario_index[playerid][i], Itens[pInventory[playerid][invSlot][i]][item_previewrot][0], Itens[pInventory[playerid][invSlot][i]][item_previewrot][1], Itens[pInventory[playerid][invSlot][i]][item_previewrot][2], Itens[pInventory[playerid][invSlot][i]][item_previewrot][3]);
+       		PlayerTextDrawShow(playerid, inventario_index[playerid][i]);
+       		
+			if(pInventory[playerid][invSlotAmount][slot] > 1)
+				format(invString, sizeof(invString), "Quantidade: %d", pInventory[playerid][invSlotAmount][slot]);
+			else
+				invString = " ";
+
+			PlayerTextDrawSetString(playerid, inventario_description[playerid][3], invString);
+			
+       		PlayerTextDrawHide(playerid, inventario_description[playerid][3]);
+       		PlayerTextDrawShow(playerid, inventario_description[playerid][3]);
+    		break;
+        }
+}
+
+//----------------------------------------------------------
+
+stock UseItem(playerid, slot, item)
+{
+	if(Itens[item][item_tipo] == ITEM_TYPE_HELMET)
+	{
+		if(pCharacter[playerid][charSlot][0] == 0)
+		{
+		    AddItemCharacter(playerid, 0, item);
+		    RemoveItemFromInventory(playerid, slot);
+		}
+		else
+		{
+		    RemoveItemFromInventory(playerid, slot);
+		    AddItem(playerid, pCharacter[playerid][charSlot][0], 1);
+		    RemoveItemFromCharacter(playerid, 0);
+		    AddItemCharacter(playerid, 0, item);
+		}
+	}
+	else if(Itens[item][item_tipo] == ITEM_TYPE_WEAPON || Itens[item][item_tipo] == ITEM_TYPE_MELEEWEAPON)
+	{
+	    if(GetAmmunation(playerid) <= 0 && Itens[item][item_tipo] == ITEM_TYPE_WEAPON)
+	    {
+	        if(item != 4 && item != 17)
+	        {
+		        pInventory[playerid][invSelectedSlot] = slot;
+		        return ShowMessageInventory(playerid, "~r~ERRO: ~w~Você não tem munição.");
+			}
+	    }
+	    
+	    new weapons[13][2];
+
+		for (new i = 0; i <= 12; i++)
+		    GetPlayerWeaponData(playerid, i, weapons[i][0], weapons[i][1]);
+
+		new weaponid = GetWeaponIDFromModel(Itens[item][item_modelo]);
+		new weaponslot = GetWeaponSlot(weaponid);
+		
+		if(weapons[weaponslot][0] != 0 && weapons[weaponslot][1] > 0)
+		{
+		    pInventory[playerid][invSelectedSlot] = slot;
+		    return ShowMessageInventory(playerid, "~r~ERRO: ~w~Não é possivel equipar duas armas do mesmo estilo.");
+		}
+
+	    new bool:have_slot;
+	    
+	    for(new i = 3; i < 7; i ++)
+	    {
+	        if(pCharacter[playerid][charSlot][i] == item)
+			{
+			    pInventory[playerid][invSelectedSlot] = slot;
+                ShowMessageInventory(playerid, "~r~ERRO: ~w~Não é possivel equipar duas armas iguais.");
+			    have_slot = true;
+			    break;
+			}
+			
+	    	if(pCharacter[playerid][charSlot][i] == 0)
+			{
+			    AddItemCharacter(playerid, i, item, pInventory[playerid][invSlotAmount][slot]);
+			    RemoveItemFromInventory(playerid, slot);
+		    	have_slot = true;
+                break;
+			}
+		}
+		
+		if(!have_slot)
+		{
+		    pInventory[playerid][invSelectedSlot] = slot;
+		    ShowMessageInventory(playerid, "~r~ERRO: ~w~Não é possivel equipar mais armas.");
+		    return true;
+		}
+	}
+	else if(Itens[item][item_tipo] == ITEM_TYPE_BODY)
+	{
+	    if(pCharacter[playerid][charSlot][1] == 0)
+		{
+	    	AddItemCharacter(playerid, 1, item, 0, pInventory[playerid][invArmourStatus][slot]);
+			RemoveItemFromInventory(playerid, slot);
+		}
+		else
+		{
+		    RemoveItemFromInventory(playerid, slot);
+		    AddItem(playerid, pCharacter[playerid][charSlot][1], 1);
+		    RemoveItemFromCharacter(playerid, 1);
+		    AddItemCharacter(playerid, 1, item);
+		}
+	}
+	else if(Itens[item][item_tipo] == ITEM_TYPE_BACKPACK)
+	{
+	    if(pCharacter[playerid][charSlot][2] == 0)
+		{
+		    AddItemCharacter(playerid, 2, item);
+			RemoveItemFromInventory(playerid, slot);
+		}
+		else
+		{
+		    RemoveItemFromInventory(playerid, slot);
+		    AddItem(playerid, pCharacter[playerid][charSlot][2], 1);
+		    RemoveItemFromCharacter(playerid, 2);
+		    AddItemCharacter(playerid, 2, item);
+		}
+		
+		OrganizeInventory(playerid);
+		
+		for(new i = 0; i < MAX_INVENTORY_SLOTS; i++)
+	    	PlayerTextDrawHide(playerid, inventario_index[playerid][i]);
+	    	
+        for(new i = 0; i < GetSlotsInventory(playerid); i++)
+		{
+			PlayerTextDrawSetPreviewModel(playerid, inventario_index[playerid][i], Itens[pInventory[playerid][invSlot][i]][item_modelo]);
+	 		PlayerTextDrawSetPreviewRot(playerid, inventario_index[playerid][i], Itens[pInventory[playerid][invSlot][i]][item_previewrot][0], Itens[pInventory[playerid][invSlot][i]][item_previewrot][1], Itens[pInventory[playerid][invSlot][i]][item_previewrot][2], Itens[pInventory[playerid][invSlot][i]][item_previewrot][3]);
+	        PlayerTextDrawBackgroundColor(playerid, inventario_index[playerid][i], 96);
+
+			PlayerTextDrawShow(playerid, inventario_index[playerid][i]);
+		}
+	}
+	else if(Itens[item][item_tipo] == ITEM_TYPE_AMMO)
+	{
+        pInventory[playerid][invSelectedSlot] = slot;
+        return true;
+	}
+	else if(Itens[item][item_tipo] == ITEM_TYPE_NORMAL)
+	{
+	    if(item == 18) // Kit Médico
+	    {
+	        SetPlayerHealth(playerid, 100.0);
+	        RemoveItemFromInventory(playerid, slot, 1);
+	    }
+	}
+
+	if(Player[playerid][inInventory])
+	{
+	   	for(new a = 0; a < 4; a++)
+		   	PlayerTextDrawHide(playerid, inventario_description[playerid][a]);
+
+		TextDrawHideForPlayer(playerid, inventario_backgrounds[4]);
+
+		TextDrawHideForPlayer(playerid, inventario_usar);
+		TextDrawHideForPlayer(playerid, inventario_split[0]);
+		TextDrawHideForPlayer(playerid, inventario_split[1]);
+		TextDrawHideForPlayer(playerid, inventario_drop[0]);
+		TextDrawHideForPlayer(playerid, inventario_drop[1]);
+		PlayerTextDrawHide(playerid, inventario_textos[playerid][9]);
+	}
+	
+	return true;
+}
+
+//----------------------------------------------------------
+
+stock AddItemCharacter(playerid, slot, itemid, quantidade = 0, Float:armourstatus = 0.0)
+{
+    pCharacter[playerid][charSlot][slot] = itemid;
+
+	if(itemid == 1)
+	{
+	    switch(GetPlayerSkin(playerid))
+		{
+		    #define HelmetAttach{%0,%1,%2,%3,%4,%5} SetPlayerAttachedObject(playerid, 0, 18645, 2, (%0), (%1), (%2), (%3), (%4), (%5));
+			case 0, 65, 74, 149, 208, 273:  HelmetAttach{0.070000, 0.000000, 0.000000, 88.000000, 75.000000, 0.000000}
+			case 1..6, 8, 14, 16, 22, 27, 29, 33, 41..49, 82..84, 86, 87, 119, 289: HelmetAttach{0.070000, 0.000000, 0.000000, 88.000000, 77.000000, 0.000000}
+			case 7, 10: HelmetAttach{0.090000, 0.019999, 0.000000, 88.000000, 90.000000, 0.000000}
+			case 9: HelmetAttach{0.059999, 0.019999, 0.000000, 88.000000, 90.000000, 0.000000}
+			case 11..13: HelmetAttach{0.070000, 0.019999, 0.000000, 88.000000, 90.000000, 0.000000}
+			case 15: HelmetAttach{0.059999, 0.000000, 0.000000, 88.000000, 82.000000, 0.000000}
+			case 17..21: HelmetAttach{0.059999, 0.019999, 0.000000, 88.000000, 82.000000, 0.000000}
+			case 23..26, 28, 30..32, 34..39, 57, 58, 98, 99, 104..118, 120..131: HelmetAttach{0.079999, 0.019999, 0.000000, 88.000000, 82.000000, 0.000000}
+			case 40: HelmetAttach{0.050000, 0.009999, 0.000000, 88.000000, 82.000000, 0.000000}
+			case 50, 100..103, 148, 150..189, 222: HelmetAttach{0.070000, 0.009999, 0.000000, 88.000000, 82.000000, 0.000000}
+			case 51..54: HelmetAttach{0.100000, 0.009999, 0.000000, 88.000000, 82.000000, 0.000000}
+			case 55, 56, 63, 64, 66..73, 75, 76, 78..81, 133..143, 147, 190..207, 209..219, 221, 247..272, 274..288, 290..293: HelmetAttach{0.070000, 0.019999, 0.000000, 88.000000, 82.000000, 0.000000}
+			case 59..62: HelmetAttach{0.079999, 0.029999, 0.000000, 88.000000, 82.000000, 0.000000}
+			case 77: HelmetAttach{0.059999, 0.019999, 0.000000, 87.000000, 82.000000, 0.000000}
+			case 85, 88, 89: HelmetAttach{0.070000, 0.039999, 0.000000, 88.000000, 82.000000, 0.000000}
+			case 90..97: HelmetAttach{0.050000, 0.019999, 0.000000, 88.000000, 82.000000, 0.000000}
+			case 132: HelmetAttach{0.000000, 0.019999, 0.000000, 88.000000, 82.000000, 0.000000}
+			case 144..146: HelmetAttach{0.090000, 0.000000, 0.000000, 88.000000, 82.000000, 0.000000}
+			case 220: HelmetAttach{0.029999, 0.019999, 0.000000, 88.000000, 82.000000, 0.000000}
+			case 223, 246: HelmetAttach{0.070000, 0.050000, 0.000000, 88.000000, 82.000000, 0.000000}
+			case 224..245: HelmetAttach{0.070000, 0.029999, 0.000000, 88.000000, 82.000000, 0.000000}
+			case 294: HelmetAttach{0.070000, 0.019999, 0.000000, 91.000000, 84.000000, 0.000000}
+			case 295: HelmetAttach{0.050000, 0.019998, 0.000000, 86.000000, 82.000000, 0.000000}
+			case 296..298: HelmetAttach{0.064999, 0.009999, 0.000000, 88.000000, 82.000000, 0.000000}
+			case 299..306: HelmetAttach{0.064998, 0.019999, 0.000000, 88.000000, 82.000000, 0.000000}
+		}
+	}
+	else if(Itens[itemid][item_tipo] == ITEM_TYPE_WEAPON || Itens[itemid][item_tipo] == ITEM_TYPE_MELEEWEAPON)
+	{
+	    new modelid = Itens[itemid][item_modelo];
+	    
+	    if(itemid == 5 || itemid == 17)
+	        GivePlayerWeapon(playerid, GetWeaponIDFromModel(modelid), quantidade);
+	    else
+		    GivePlayerWeapon(playerid, GetWeaponIDFromModel(modelid), GetAmmunation(playerid));
+	}
+	else if(itemid == 6)
+	{
+	    SetPlayerArmour(playerid, armourstatus);
+	    pCharacter[playerid][charArmourStatus] = armourstatus;
+
+        switch(GetPlayerSkin(playerid))
+		{
+		    case 292:
+				SetPlayerAttachedObject(playerid, 1, 19142, 1, 0.103999,0.034999,0.001000,0.000000,0.000000,0.000000,1.000000,1.000000,1.000000);
+		}
+	}
+	else if(Itens[itemid][item_tipo] == ITEM_TYPE_BACKPACK)
+	{
+	    switch(GetPlayerSkin(playerid))
+		{
+		    case 292:
+		        SetPlayerAttachedObject(playerid, 2, 3026,1,-0.129000,-0.078999,-0.003999,0.000000,0.000000,0.000000,1.000000,1.000000,1.000000);
+		}
+	}
+	
+	PlayerPlaySound(playerid,1052,0.0,0.0,0.0);
+
+    if(Player[playerid][inInventory])
+	{
+	    PlayerTextDrawSetPreviewModel(playerid, inventario_personagemindex[playerid][slot], Itens[itemid][item_modelo]);
+		PlayerTextDrawSetPreviewRot(playerid, inventario_personagemindex[playerid][slot], Itens[itemid][item_previewrot][0], Itens[itemid][item_previewrot][1], Itens[itemid][item_previewrot][2], Itens[itemid][item_previewrot][3]);
+
+	    PlayerTextDrawHide(playerid, inventario_personagemindex[playerid][slot]);
+	   	PlayerTextDrawShow(playerid, inventario_personagemindex[playerid][slot]);
+	}
+}
+//----------------------------------------------------------
+
+stock RemoveItemFromInventory(playerid, slot, amount = 0)
+{
+
+    if(amount == 0)
+    {
+        pInventory[playerid][invSlot][slot] = 0;
+		pInventory[playerid][invSlotAmount][slot] = 0;
+	}
+	else
+	{
+	    pInventory[playerid][invSlotAmount][slot] -= amount;
+	    
+	    if(pInventory[playerid][invSlotAmount][slot] == 0)
+	        pInventory[playerid][invSlot][slot] = 0;
+
+	}
+	
+	if(Player[playerid][inInventory])
+	{
+	    PlayerTextDrawSetPreviewModel(playerid, inventario_index[playerid][slot], Itens[pInventory[playerid][invSlot][slot]][item_modelo]);
+ 		PlayerTextDrawSetPreviewRot(playerid, inventario_index[playerid][slot], Itens[pInventory[playerid][invSlot][slot]][item_previewrot][0], Itens[pInventory[playerid][invSlot][slot]][item_previewrot][1], Itens[pInventory[playerid][invSlot][slot]][item_previewrot][2], Itens[pInventory[playerid][invSlot][slot]][item_previewrot][3]);
+        PlayerTextDrawBackgroundColor(playerid, inventario_index[playerid][slot], 96);
+	
+		PlayerTextDrawHide(playerid, inventario_index[playerid][slot]);
+		PlayerTextDrawShow(playerid, inventario_index[playerid][slot]);
+	}
+}
+
+//----------------------------------------------------------
+
+stock RemoveItemFromCharacter(playerid, slot)
+{
+	if(Itens[pCharacter[playerid][charSlot][slot]][item_tipo] == ITEM_TYPE_WEAPON)
+	{
+	    new modelid = Itens[pCharacter[playerid][charSlot][slot]][item_modelo];
+	    SetPlayerAmmo(playerid, GetWeaponIDFromModel(modelid), 0);
+	    
+        new itemid = Itens[pCharacter[playerid][charSlot][slot]][item_id];
+
+        pCharacter[playerid][charSlot][slot] = 0;
+        
+	    if(itemid == 3 || itemid == 9)
+	    	if(IsPlayerAttachedObjectSlotUsed(playerid, 3))
+     			RemovePlayerAttachedObject(playerid, 3);
+		        	
+        if(itemid == 10)
+	    	if(IsPlayerAttachedObjectSlotUsed(playerid, 4))
+      			RemovePlayerAttachedObject(playerid, 4);
+      			
+      	if(itemid == 2)
+	    	if(IsPlayerAttachedObjectSlotUsed(playerid, 5))
+      			RemovePlayerAttachedObject(playerid, 5);
+	    
+	}
+	else if(Itens[pCharacter[playerid][charSlot][slot]][item_tipo] == ITEM_TYPE_MELEEWEAPON)
+	{
+	    new modelid = Itens[pCharacter[playerid][charSlot][slot]][item_modelo];
+	    RemovePlayerWeapon(playerid, GetWeaponIDFromModel(modelid));
+	    
+	    if(IsPlayerAttachedObjectSlotUsed(playerid, 6))
+      		RemovePlayerAttachedObject(playerid, 6);
+	}
+
+	if(slot == 0) // Helmet
+	{
+	    RemovePlayerAttachedObject(playerid, 0);
+	}
+	else if(slot == 1) // Armour
+	{
+	    RemovePlayerAttachedObject(playerid, 1);
+	    SetPlayerArmour(playerid, 0);
+	    pCharacter[playerid][charArmourStatus] = 0.0;
+	}
+	else if(slot == 2) // Backpack
+	{
+	    RemovePlayerAttachedObject(playerid, 2);
+	    pCharacter[playerid][charSlot][slot] = 0;
+	    
+	    for(new i = 0; i < MAX_INVENTORY_SLOTS; i++)
+	    	PlayerTextDrawHide(playerid, inventario_index[playerid][i]);
+
+        for(new i = 0; i < GetSlotsInventory(playerid); i++)
+		{
+			PlayerTextDrawSetPreviewModel(playerid, inventario_index[playerid][i], Itens[pInventory[playerid][invSlot][i]][item_modelo]);
+	 		PlayerTextDrawSetPreviewRot(playerid, inventario_index[playerid][i], Itens[pInventory[playerid][invSlot][i]][item_previewrot][0], Itens[pInventory[playerid][invSlot][i]][item_previewrot][1], Itens[pInventory[playerid][invSlot][i]][item_previewrot][2], Itens[pInventory[playerid][invSlot][i]][item_previewrot][3]);
+	        PlayerTextDrawBackgroundColor(playerid, inventario_index[playerid][i], 96);
+
+			PlayerTextDrawShow(playerid, inventario_index[playerid][i]);
+		}
+	}
+    
+    pCharacter[playerid][charSlot][slot] = 0;
+    PlayerPlaySound(playerid,1053,0.0,0.0,0.0);
+
+    if(Player[playerid][inInventory])
+	{
+	    PlayerTextDrawSetPreviewModel(playerid, inventario_personagemindex[playerid][slot], Itens[0][item_modelo]);
+	 	PlayerTextDrawSetPreviewRot(playerid, inventario_personagemindex[playerid][slot], Itens[0][item_previewrot][0], Itens[0][item_previewrot][1], Itens[0][item_previewrot][2], Itens[0][item_previewrot][3]);
+		PlayerTextDrawBackgroundColor(playerid, inventario_personagemindex[playerid][slot], 96);
+
+	    PlayerTextDrawHide(playerid, inventario_personagemindex[playerid][slot]);
+	   	PlayerTextDrawShow(playerid, inventario_personagemindex[playerid][slot]);
+
+	   	PlayerTextDrawHide(playerid, inventario_textos[playerid][10]);
+		TextDrawHideForPlayer(playerid, inventario_remover);
+	}
+}
+//----------------------------------------------------------
+
+stock DropItem(Float:x, Float:y, Float:z, itemid, amount, Float:armourstatus = 0.0)
+{
+    ItensWorld[LastItemID][world_timer] = TIMER_ITEM_WORLD;
+	ItensWorld[LastItemID][world_itemid] = itemid;
+	ItensWorld[LastItemID][world_model] = Itens[itemid][item_modelo];
+	ItensWorld[LastItemID][world_amount] = amount;
+	ItensWorld[LastItemID][world_position][0] = x;
+	ItensWorld[LastItemID][world_position][1] = y;
+	ItensWorld[LastItemID][world_position][2] = z;
+
+	if(itemid == 6)
+	    ItensWorld[LastItemID][world_armourstatus] = armourstatus;
+	
+    ItensWorld[LastItemID][world_object] = CreateObject(ItensWorld[LastItemID][world_model], x, y, z-0.90, -90,0,0);
+
+	if(amount > 1)
+		format(invString, sizeof(invString), "%s (%d)", Itens[itemid][item_nome], amount);
+	else
+		format(invString, sizeof(invString), "%s", Itens[itemid][item_nome]);
+		
+	ItensWorld[LastItemID][world_3dtext] = Create3DTextLabel(invString, -1, x, y,z-0.90, 5.0, 0, 0);
+	
+	ItensWorld[LastItemID][world_active] = true;
+
+	if(LastItemID == MAX_ITENS_WORLD-1)
+		LastItemID = 0;
+	else
+	    LastItemID++;
+}
+
+//----------------------------------------------------------
+
+stock DeleteItemWorld(worlditemid)
+{
+    ItensWorld[worlditemid][world_active] = false;
+    DestroyObject(ItensWorld[worlditemid][world_object]);
+    Delete3DTextLabel(ItensWorld[worlditemid][world_3dtext]);
+}
+
+//----------------------------------------------------------
+
+stock SlotsFree(playerid)
+{
+	new count = 0;
+	
+    for(new i = 0; i < GetSlotsInventory(playerid); i ++)
+        if(pInventory[playerid][invSlot][i] == 0)
+            count++;
+            
+	return count;
+}
+
+//----------------------------------------------------------
+
+stock SlotsInUse(playerid)
+{
+    new count = 0;
+    
+    for(new i = 0; i < GetSlotsInventory(playerid); i ++)
+        if(pInventory[playerid][invSlot][i] != 0)
+            count++;
+            
+	return count;
+}
+
+//----------------------------------------------------------
+
+stock InventoryFull(playerid)
+{
+    for(new i = 0; i < GetSlotsInventory(playerid); i ++)
+        if(pInventory[playerid][invSlot][i] == 0)
+            return false;
+
+
+	return true;
+}
+
+//----------------------------------------------------------
+
+stock GetSlotsInventory(playerid)
+{
+    new slots;
+
+	if(pCharacter[playerid][charSlot][2] == 0)
+	    slots = 5;
+	else if(pCharacter[playerid][charSlot][2] == 7)
+	    slots = 10;
+    else if(pCharacter[playerid][charSlot][2] == 8)
+	    slots = 15;
+	    
+	return slots;
+}
+
+//----------------------------------------------------------
+
+stock GetAmmunation(playerid)
+{
+	new total;
+
+    for(new i = 0; i < GetSlotsInventory(playerid); i ++)
+        if(pInventory[playerid][invSlot][i] == 4)
+			total += pInventory[playerid][invSlotAmount][i];
+
+	return total;
+}
+
+//----------------------------------------------------------
+
+stock GetAmmunationSlot(playerid)
+{
+	new slot = -1;
+	
+    for(new i = 0; i < GetSlotsInventory(playerid); i ++)
+        if(pInventory[playerid][invSlot][i] == 4)
+        {
+            slot = i;
+            break;
+		}
+		
+	return slot;
+}
+
+//----------------------------------------------------------
+
+stock OrganizeInventory(playerid)
+{
+    for(new i = 0; i < MAX_INVENTORY_SLOTS; i++)
+	    if(pInventory[playerid][invSlot][i] != 0)
+		    for(new a = 0; a < MAX_INVENTORY_SLOTS; a++)
+		        if(pInventory[playerid][invSlot][a] == 0)
+		        {
+			        pInventory[playerid][invSlot][a] = pInventory[playerid][invSlot][i];
+			        pInventory[playerid][invSlotAmount][a] = pInventory[playerid][invSlotAmount][i];
+                    pInventory[playerid][invArmourStatus][a] = pInventory[playerid][invArmourStatus][i];
+			        pInventory[playerid][invSlot][i] = 0;
+			        pInventory[playerid][invSlotAmount][i] = 0;
+			        pInventory[playerid][invArmourStatus][i] = 0;
+				}
+}
+
+//----------------------------------------------------------
+
+stock GetWeaponSlot(weaponid)
+{
+	new slot;
+	
+	switch(weaponid)
+	{
+		case 0,1: slot = 0;
+		case 2 .. 9: slot = 1;
+		case 10 .. 15: slot = 10;
+		case 16 .. 18, 39: slot = 8;
+		case 22 .. 24: slot =2;
+		case 25 .. 27: slot = 3;
+		case 28, 29, 32: slot = 4;
+		case 30, 31: slot = 5;
+		case 33, 34: slot = 6;
+		case 35 .. 38: slot = 7;
+		case 40: slot = 12;
+		case 41 .. 43: slot = 9;
+		case 44 .. 46: slot = 11;
+	}
+	
+	return slot;
+}
+
+//----------------------------------------------------------
+
+stock ShowInventory(playerid)
+{
+    Player[playerid][inInventory] = true;
+    SelectTextDraw(playerid, 0xFFFFFFFF);
+
+    // Globais
+
+    TextDrawShowForPlayer(playerid, inventario_close[0]);
+	TextDrawShowForPlayer(playerid, inventario_close[1]);
+	
+	for(new i = 0; i < 5; i++)
+	    if(i != 4)
+	    	TextDrawShowForPlayer(playerid, inventario_backgrounds[i]);
+
+	// Player
+
+	for(new i = 0; i < GetSlotsInventory(playerid); i++)
+	{
+		PlayerTextDrawSetPreviewModel(playerid, inventario_index[playerid][i], Itens[pInventory[playerid][invSlot][i]][item_modelo]);
+ 		PlayerTextDrawSetPreviewRot(playerid, inventario_index[playerid][i], Itens[pInventory[playerid][invSlot][i]][item_previewrot][0], Itens[pInventory[playerid][invSlot][i]][item_previewrot][1], Itens[pInventory[playerid][invSlot][i]][item_previewrot][2], Itens[pInventory[playerid][invSlot][i]][item_previewrot][3]);
+        PlayerTextDrawBackgroundColor(playerid, inventario_index[playerid][i], 96);
+        
+		PlayerTextDrawShow(playerid, inventario_index[playerid][i]);
+	}
+
+	for(new i = 0; i < 11; i++)
+	    if(i != 10 && i != 9)
+	    	PlayerTextDrawShow(playerid, inventario_textos[playerid][i]);
+
+	for(new i = 0; i < 7; i++)
+	{
+	    new char_slot = pCharacter[playerid][charSlot][i];
+
+	    PlayerTextDrawSetPreviewModel(playerid, inventario_personagemindex[playerid][i], Itens[char_slot][item_modelo]);
+ 		PlayerTextDrawSetPreviewRot(playerid, inventario_personagemindex[playerid][i], Itens[char_slot][item_previewrot][0], Itens[char_slot][item_previewrot][1], Itens[char_slot][item_previewrot][2], Itens[char_slot][item_previewrot][3]);
+        PlayerTextDrawBackgroundColor(playerid, inventario_personagemindex[playerid][i], 96);
+        
+	    PlayerTextDrawShow(playerid, inventario_personagemindex[playerid][i]);
+	}
+
+	PlayerTextDrawSetPreviewModel(playerid, inventario_skin[playerid], GetPlayerSkin(playerid));
+	PlayerTextDrawShow(playerid, inventario_skin[playerid]);
+}
+
+//----------------------------------------------------------
+
+stock HideInventory(playerid)
+{
+	TextDrawHideForPlayer(playerid, inventario_usar);
+	TextDrawHideForPlayer(playerid, inventario_split[0]);
+	TextDrawHideForPlayer(playerid, inventario_split[1]);
+	TextDrawHideForPlayer(playerid, inventario_drop[0]);
+	TextDrawHideForPlayer(playerid, inventario_drop[1]);
+	TextDrawHideForPlayer(playerid, inventario_close[0]);
+	TextDrawHideForPlayer(playerid, inventario_close[1]);
+	
+	for(new i = 0; i < 5; i++)
+	    if(i != 4)
+	    	TextDrawHideForPlayer(playerid, inventario_backgrounds[i]);
+	    	
+    for(new i = 0; i < MAX_INVENTORY_SLOTS; i++)
+	    PlayerTextDrawHide(playerid, inventario_index[playerid][i]);
+
+    for(new i = 0; i < 11; i++)
+	    PlayerTextDrawHide(playerid, inventario_textos[playerid][i]);
+
+	for(new i = 0; i < 7; i++)
+	    PlayerTextDrawHide(playerid, inventario_personagemindex[playerid][i]);
+
+	PlayerTextDrawHide(playerid, inventario_skin[playerid]);
+	TextDrawHideForPlayer(playerid, inventario_remover);
+	
+	TextDrawHideForPlayer(playerid, inventario_backgrounds[4]);
+
+	for(new a = 0; a < 4; a++)
+    	PlayerTextDrawHide(playerid, inventario_description[playerid][a]);
+    	
+    pInventory[playerid][invSelectedSlot] = -1;
+    pCharacter[playerid][charSelectedSlot] = -1;
+    Player[playerid][inInventory] = false;
+    CancelSelectTextDraw(playerid);
+}
+
+//----------------------------------------------------------
+
+stock GetWeaponIDFromModel(modelid)
+{
+    new idweapon;
+    
+    switch(modelid)
+	{
+       	case 331: idweapon = 1; // Brass Knuckles
+       	case 333: idweapon = 2; // Golf Club
+       	case 334: idweapon = 3; // Nightstick
+      	case 335: idweapon = 4; // Knife
+       	case 336: idweapon = 5; // Baseball Bat
+       	case 337: idweapon = 6; // Shovel
+       	case 338: idweapon = 7; // Pool Cue
+       	case 339: idweapon = 8; // Katana
+       	case 341: idweapon = 9; // Chainsaw
+       	case 321: idweapon = 10; // Double-ended Dildo
+       	case 325: idweapon = 14; // Flowers
+       	case 326: idweapon = 15; // Cane
+       	case 342: idweapon = 16; // Grenade
+       	case 343: idweapon = 17; // Tear Gas
+       	case 344: idweapon = 18; // Molotov Cocktail
+       	case 346: idweapon = 22; // 9mm
+       	case 347: idweapon = 23; // Silenced 9mm
+       	case 348: idweapon = 24; // Desert Eagle
+       	case 349: idweapon = 25; // Shotgun
+       	case 350: idweapon = 26; // Sawnoff
+       	case 351: idweapon = 27; // Combat Shotgun
+       	case 352: idweapon = 28; // Micro SMG/Uzi
+       	case 353: idweapon = 29; // MP5
+       	case 355: idweapon = 30; // AK-47
+       	case 356: idweapon = 31; // M4
+       	case 372: idweapon = 32; // Tec-9
+       	case 357: idweapon = 33; // Country Rifle
+       	case 358: idweapon = 34; // Sniper Rifle
+       	case 359: idweapon = 35; // RPG
+       	case 360: idweapon = 36; // HS Rocket
+       	case 361: idweapon = 37; // Flamethrower
+       	case 362: idweapon = 38; // Minigun
+       	case 363: idweapon = 39;// Satchel Charge + Detonator
+       	case 365: idweapon = 41; // Spraycan
+       	case 366: idweapon = 42; // Fire Extinguisher
+	}
+	
+	return idweapon;
+}
+
+//----------------------------------------------------------
+
+stock RemovePlayerWeapon(playerid, weaponid)
+{
+	new plyWeapons[12];
+	new plyAmmo[12];
+
+	for(new slot = 0; slot != 12; slot++)
+	{
+		new wep, ammo;
+		GetPlayerWeaponData(playerid, slot, wep, ammo);
+
+		if(wep != weaponid)
+		{
+			GetPlayerWeaponData(playerid, slot, plyWeapons[slot], plyAmmo[slot]);
+		}
+	}
+
+	ResetPlayerWeapons(playerid);
+	for(new slot = 0; slot != 12; slot++)
+	{
+		GivePlayerWeapon(playerid, plyWeapons[slot], plyAmmo[slot]);
+	}
+}
+
+//----------------------------------------------------------
+
+public Float:GetPlayerArmourEx(playerid)
+{
+	new Float:pColete;
+	GetPlayerArmour(playerid, pColete);
+	return Float:pColete;
+}
+//----------------------------------------------------------
+
+stock ShowMessageInventory(playerid, string[], time = 5000)
+{
+	if (Player[playerid][MessageInventory])
+	{
+	    PlayerTextDrawHide(playerid, inventario_mensagem[playerid]);
+	    KillTimer(Player[playerid][MessageInventoryTimer]);
+	}
+
+	PlayerTextDrawSetString(playerid, inventario_mensagem[playerid], ConvertToGameText(string));
+	PlayerTextDrawShow(playerid, inventario_mensagem[playerid]);
+
+	Player[playerid][MessageInventory] = true;
+	Player[playerid][MessageInventoryTimer] = SetTimerEx("HideMessageInventory", time, false, "d", playerid);
+	return true;
+}
+
+//----------------------------------------------------------
+
+public HideMessageInventory(playerid)
+{
+	if (!Player[playerid][MessageInventory])
+	    return 0;
+
+	Player[playerid][MessageInventory] = false;
+	return PlayerTextDrawHide(playerid, inventario_mensagem[playerid]);
+}
+
+//----------------------------------------------------------
+
+stock ConvertToGameText(in[])
+{
+    new string[256];
+    for(new i = 0; in[i]; ++i)
+    {
+        string[i] = in[i];
+        switch(string[i])
+        {
+            case 0xC0 .. 0xC3: string[i] -= 0x40;
+            case 0xC7 .. 0xC9: string[i] -= 0x42;
+            case 0xD2 .. 0xD5: string[i] -= 0x44;
+            case 0xD9 .. 0xDC: string[i] -= 0x47;
+            case 0xE0 .. 0xE3: string[i] -= 0x49;
+            case 0xE7 .. 0xEF: string[i] -= 0x4B;
+            case 0xF2 .. 0xF5: string[i] -= 0x4D;
+            case 0xF9 .. 0xFC: string[i] -= 0x50;
+            case 0xC4, 0xE4: string[i] = 0x83;
+            case 0xC6, 0xE6: string[i] = 0x84;
+            case 0xD6, 0xF6: string[i] = 0x91;
+            case 0xD1, 0xF1: string[i] = 0xEC;
+            case 0xDF: string[i] = 0x96;
+            case 0xBF: string[i] = 0xAF;
+        }
+    }
+    return string;
+}
+
+//----------------------------------------------------------
+
+stock ResetVariables(playerid)
+{
+    // Inventory
+
+    for(new i = 0; i < MAX_INVENTORY_SLOTS; i ++)
+    {
+        pInventory[playerid][invSlot][i] = 0;
+        pInventory[playerid][invSlotAmount][i] = 0;
+        pInventory[playerid][invArmourStatus][i] = 0;
+	}
+
+	pInventory[playerid][invSelectedSlot] = 0;
+
+	// Character
+
+	for(new i = 0; i < 7; i ++)
+        pCharacter[playerid][charSlot][i] = 0;
+
+	pCharacter[playerid][charArmourStatus] = 0;
+	pCharacter[playerid][charSelectedSlot] = 0;
+
+
+	// Player
+
+	for(new enum_Player:i; i < enum_Player; ++i)
+	    Player[playerid][i] = 0;
+}
+
+//----------------------------------------------------------

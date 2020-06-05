@@ -1,0 +1,52 @@
+ /*
+
+
+
+
+
+
+
+												 _       _     _    _________     _
+												| |     | |   / |  |______  /    / |
+												| |     | |  /  |        / /    /  |
+												| |     | | / / |       / /    / / |
+												| |_____| |/_/| |      / /    /_/| |
+												|  _____  |   | |     / /        | |
+												| |     | |   | |    / /         | |
+												| |     | |   | |   / /          | |
+												| |     | | __| |__/ /______   __| |__
+												|_|     |_||______/_________| |_______|
+
+															Battle Royale
+
+*/
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+/* Includes necessárias para o bom funcionamento do script */
+#include "YSI\y_hooks"
+
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+hook OnPlayerDisconnect(playerid, reason)
+{
+	PlayerCodigo[playerid] = -1;
+	return 1;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+generateCod(){
+    new string[9];
+    //new chars[26][] = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
+    new chars [ 1 + ('z' - 'a') ] = { 'a', 'b', ...}  ; 
+    format(string, sizeof(string), "%s%s%s%s%s%s%s%s", chars[random(sizeof(chars))], chars[random(sizeof(chars))], chars[random(sizeof(chars))], chars[random(sizeof(chars))], chars[random(sizeof(chars))], chars[random(sizeof(chars))], chars[random(sizeof(chars))], chars[random(sizeof(chars))]);
+    return string;
+}

@@ -1,0 +1,221 @@
+// TextDraw developed using Zamaroht's Textdraw Editor 1.0
+
+// On top of script:
+new Text:Textdraw0;
+new Text:Textdraw1;
+new Text:Textdraw2;
+new Text:Textdraw3;
+new Text:Textdraw4;
+new Text:Textdraw5;
+new Text:Textdraw6;
+new Text:Textdraw7;
+new Text:Textdraw8;
+new Text:Textdraw9;
+new Text:Textdraw10;
+new Text:Textdraw11;
+new Text:Textdraw12;
+new Text:Textdraw13;
+new Text:Textdraw14;
+new Text:Textdraw15;
+new Text:Textdraw16;
+
+// In OnGameModeInit prefferably, we procced to create our textdraws:
+Textdraw0 = TextDrawCreate(345.000000, 159.000000, "REGISTRE-SE");
+TextDrawBackgroundColor(Textdraw0, 255);
+TextDrawFont(Textdraw0, 2);
+TextDrawLetterSize(Textdraw0, 0.409999, 3.399998);
+TextDrawColor(Textdraw0, -1);
+TextDrawSetOutline(Textdraw0, 0);
+TextDrawSetProportional(Textdraw0, 1);
+TextDrawSetShadow(Textdraw0, 0);
+TextDrawSetSelectable(Textdraw0, 0);
+
+Textdraw1 = TextDrawCreate(345.000000, 156.000000, "ainda nao tem uma conta? registre-se!");
+TextDrawBackgroundColor(Textdraw1, 255);
+TextDrawFont(Textdraw1, 2);
+TextDrawLetterSize(Textdraw1, 0.119998, 1.199998);
+TextDrawColor(Textdraw1, -1);
+TextDrawSetOutline(Textdraw1, 0);
+TextDrawSetProportional(Textdraw1, 1);
+TextDrawSetShadow(Textdraw1, 0);
+TextDrawSetSelectable(Textdraw1, 0);
+
+Textdraw2 = TextDrawCreate(470.000000, 220.000000, "_");
+TextDrawBackgroundColor(Textdraw2, 255);
+TextDrawFont(Textdraw2, 1);
+TextDrawLetterSize(Textdraw2, 0.500000, 1.499999);
+TextDrawColor(Textdraw2, -1);
+TextDrawSetOutline(Textdraw2, 0);
+TextDrawSetProportional(Textdraw2, 1);
+TextDrawSetShadow(Textdraw2, 1);
+TextDrawUseBox(Textdraw2, 1);
+TextDrawBoxColor(Textdraw2, -1448501761);
+TextDrawTextSize(Textdraw2, 326.000000, 0.000000);
+TextDrawSetSelectable(Textdraw2, 0);
+
+Textdraw3 = TextDrawCreate(469.000000, 221.500000, "_");
+TextDrawBackgroundColor(Textdraw3, 255);
+TextDrawFont(Textdraw3, 1);
+TextDrawLetterSize(Textdraw3, 0.500000, 1.199998);
+TextDrawColor(Textdraw3, -1);
+TextDrawSetOutline(Textdraw3, 0);
+TextDrawSetProportional(Textdraw3, 1);
+TextDrawSetShadow(Textdraw3, 1);
+TextDrawUseBox(Textdraw3, 1);
+TextDrawBoxColor(Textdraw3, 589505535);
+TextDrawTextSize(Textdraw3, 327.000000, 0.000000);
+TextDrawSetSelectable(Textdraw3, 0);
+
+Textdraw4 = TextDrawCreate(328.000000, 206.000000, "Insira um nick:");
+TextDrawBackgroundColor(Textdraw4, 255);
+TextDrawFont(Textdraw4, 2);
+TextDrawLetterSize(Textdraw4, 0.140000, 1.199998);
+TextDrawColor(Textdraw4, -1448501761);
+TextDrawSetOutline(Textdraw4, 0);
+TextDrawSetProportional(Textdraw4, 1);
+TextDrawSetShadow(Textdraw4, 0);
+TextDrawSetSelectable(Textdraw4, 0);
+
+Textdraw5 = TextDrawCreate(398.000000, 220.000000, "...");
+TextDrawAlignment(Textdraw5, 2);
+TextDrawBackgroundColor(Textdraw5, 255);
+TextDrawFont(Textdraw5, 2);
+TextDrawLetterSize(Textdraw5, 0.140000, 1.199998);
+TextDrawColor(Textdraw5, -1448501761);
+TextDrawSetOutline(Textdraw5, 0);
+TextDrawSetProportional(Textdraw5, 1);
+TextDrawSetShadow(Textdraw5, 0);
+TextDrawSetSelectable(Textdraw5, 0);
+
+Textdraw6 = TextDrawCreate(470.000000, 254.000000, "_");
+TextDrawBackgroundColor(Textdraw6, 255);
+TextDrawFont(Textdraw6, 1);
+TextDrawLetterSize(Textdraw6, 0.500000, 1.499999);
+TextDrawColor(Textdraw6, -1);
+TextDrawSetOutline(Textdraw6, 0);
+TextDrawSetProportional(Textdraw6, 1);
+TextDrawSetShadow(Textdraw6, 1);
+TextDrawUseBox(Textdraw6, 1);
+TextDrawBoxColor(Textdraw6, -1448501761);
+TextDrawTextSize(Textdraw6, 326.000000, 0.000000);
+TextDrawSetSelectable(Textdraw6, 0);
+
+Textdraw7 = TextDrawCreate(469.000000, 255.299987, "_");
+TextDrawBackgroundColor(Textdraw7, 255);
+TextDrawFont(Textdraw7, 1);
+TextDrawLetterSize(Textdraw7, 0.500000, 1.199998);
+TextDrawColor(Textdraw7, -1);
+TextDrawSetOutline(Textdraw7, 0);
+TextDrawSetProportional(Textdraw7, 1);
+TextDrawSetShadow(Textdraw7, 1);
+TextDrawUseBox(Textdraw7, 1);
+TextDrawBoxColor(Textdraw7, 589505535);
+TextDrawTextSize(Textdraw7, 327.000000, 0.000000);
+TextDrawSetSelectable(Textdraw7, 0);
+
+Textdraw8 = TextDrawCreate(328.000000, 240.000000, "coloque sua senha:");
+TextDrawBackgroundColor(Textdraw8, 255);
+TextDrawFont(Textdraw8, 2);
+TextDrawLetterSize(Textdraw8, 0.140000, 1.199998);
+TextDrawColor(Textdraw8, -1448501761);
+TextDrawSetOutline(Textdraw8, 0);
+TextDrawSetProportional(Textdraw8, 1);
+TextDrawSetShadow(Textdraw8, 0);
+TextDrawSetSelectable(Textdraw8, 0);
+
+Textdraw9 = TextDrawCreate(398.000000, 255.000000, "...");
+TextDrawAlignment(Textdraw9, 2);
+TextDrawBackgroundColor(Textdraw9, 255);
+TextDrawFont(Textdraw9, 2);
+TextDrawLetterSize(Textdraw9, 0.140000, 1.199998);
+TextDrawColor(Textdraw9, -1448501761);
+TextDrawSetOutline(Textdraw9, 0);
+TextDrawSetProportional(Textdraw9, 1);
+TextDrawSetShadow(Textdraw9, 0);
+TextDrawSetSelectable(Textdraw9, 0);
+
+Textdraw10 = TextDrawCreate(470.000000, 288.000000, "_");
+TextDrawBackgroundColor(Textdraw10, 255);
+TextDrawFont(Textdraw10, 1);
+TextDrawLetterSize(Textdraw10, 0.500000, 1.499999);
+TextDrawColor(Textdraw10, -1);
+TextDrawSetOutline(Textdraw10, 0);
+TextDrawSetProportional(Textdraw10, 1);
+TextDrawSetShadow(Textdraw10, 1);
+TextDrawUseBox(Textdraw10, 1);
+TextDrawBoxColor(Textdraw10, -1448501761);
+TextDrawTextSize(Textdraw10, 326.000000, 0.000000);
+TextDrawSetSelectable(Textdraw10, 0);
+
+Textdraw11 = TextDrawCreate(469.000000, 289.299987, "_");
+TextDrawBackgroundColor(Textdraw11, 255);
+TextDrawFont(Textdraw11, 1);
+TextDrawLetterSize(Textdraw11, 0.500000, 1.199998);
+TextDrawColor(Textdraw11, -1);
+TextDrawSetOutline(Textdraw11, 0);
+TextDrawSetProportional(Textdraw11, 1);
+TextDrawSetShadow(Textdraw11, 1);
+TextDrawUseBox(Textdraw11, 1);
+TextDrawBoxColor(Textdraw11, 589505535);
+TextDrawTextSize(Textdraw11, 327.000000, 0.000000);
+TextDrawSetSelectable(Textdraw11, 0);
+
+Textdraw12 = TextDrawCreate(328.000000, 274.000000, "coloque um email valido:");
+TextDrawBackgroundColor(Textdraw12, 255);
+TextDrawFont(Textdraw12, 2);
+TextDrawLetterSize(Textdraw12, 0.140000, 1.200000);
+TextDrawColor(Textdraw12, -1448501761);
+TextDrawSetOutline(Textdraw12, 0);
+TextDrawSetProportional(Textdraw12, 1);
+TextDrawSetShadow(Textdraw12, 0);
+TextDrawSetSelectable(Textdraw12, 0);
+
+Textdraw13 = TextDrawCreate(398.000000, 289.000000, "...");
+TextDrawAlignment(Textdraw13, 2);
+TextDrawBackgroundColor(Textdraw13, 255);
+TextDrawFont(Textdraw13, 2);
+TextDrawLetterSize(Textdraw13, 0.140000, 1.199998);
+TextDrawColor(Textdraw13, -1448501761);
+TextDrawSetOutline(Textdraw13, 0);
+TextDrawSetProportional(Textdraw13, 1);
+TextDrawSetShadow(Textdraw13, 0);
+TextDrawSetSelectable(Textdraw13, 0);
+
+Textdraw14 = TextDrawCreate(453.000000, 321.500000, "_");
+TextDrawBackgroundColor(Textdraw14, 255);
+TextDrawFont(Textdraw14, 1);
+TextDrawLetterSize(Textdraw14, 0.500000, 4.000000);
+TextDrawColor(Textdraw14, -1);
+TextDrawSetOutline(Textdraw14, 0);
+TextDrawSetProportional(Textdraw14, 1);
+TextDrawSetShadow(Textdraw14, 1);
+TextDrawUseBox(Textdraw14, 1);
+TextDrawBoxColor(Textdraw14, 1509949695);
+TextDrawTextSize(Textdraw14, 346.000000, 0.000000);
+TextDrawSetSelectable(Textdraw14, 0);
+
+Textdraw15 = TextDrawCreate(452.000000, 320.000000, "_");
+TextDrawBackgroundColor(Textdraw15, 255);
+TextDrawFont(Textdraw15, 1);
+TextDrawLetterSize(Textdraw15, 0.500000, 4.000000);
+TextDrawColor(Textdraw15, -1);
+TextDrawSetOutline(Textdraw15, 0);
+TextDrawSetProportional(Textdraw15, 1);
+TextDrawSetShadow(Textdraw15, 1);
+TextDrawUseBox(Textdraw15, 1);
+TextDrawBoxColor(Textdraw15, 1931945983);
+TextDrawTextSize(Textdraw15, 345.000000, 0.000000);
+TextDrawSetSelectable(Textdraw15, 0);
+
+Textdraw16 = TextDrawCreate(366.000000, 328.000000, "REGISTRE-SE >>");
+TextDrawBackgroundColor(Textdraw16, 255);
+TextDrawFont(Textdraw16, 2);
+TextDrawLetterSize(Textdraw16, 0.199998, 1.899996);
+TextDrawColor(Textdraw16, -1);
+TextDrawSetOutline(Textdraw16, 0);
+TextDrawSetProportional(Textdraw16, 1);
+TextDrawSetShadow(Textdraw16, 0);
+TextDrawSetSelectable(Textdraw16, 0);
+
+// You can now use TextDrawShowForPlayer(-ForAll), TextDrawHideForPlayer(-ForAll) and
+// TextDrawDestroy functions to show, hide, and destroy the textdraw.

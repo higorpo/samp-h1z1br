@@ -1,0 +1,51 @@
+// TextDraw developed using Zamaroht's Textdraw Editor 1.0
+
+// On top of script:
+new Text:Textdraw0;
+new Text:Textdraw1;
+new Text:Textdraw2;
+new Text:Textdraw3;
+
+// In OnGameModeInit prefferably, we procced to create our textdraws:
+Textdraw0 = TextDrawCreate(34.000000, 332.000000, "LD_POOL:ball");
+TextDrawBackgroundColor(Textdraw0, 255);
+TextDrawFont(Textdraw0, 4);
+TextDrawLetterSize(Textdraw0, 0.500000, 1.000000);
+TextDrawColor(Textdraw0, 993737727);
+TextDrawSetOutline(Textdraw0, 0);
+TextDrawSetProportional(Textdraw0, 1);
+TextDrawSetShadow(Textdraw0, 1);
+TextDrawUseBox(Textdraw0, 1);
+TextDrawBoxColor(Textdraw0, 90);
+TextDrawTextSize(Textdraw0, 107.000000, 101.000000);
+TextDrawSetSelectable(Textdraw0, 0);
+
+Textdraw1 = TextDrawCreate(53.000000, 363.000000, "~w~H1~r~Z~w~1");
+TextDrawBackgroundColor(Textdraw1, 757935615);
+TextDrawFont(Textdraw1, 1);
+TextDrawLetterSize(Textdraw1, 0.899999, 3.000000);
+TextDrawColor(Textdraw1, -1);
+TextDrawSetOutline(Textdraw1, 1);
+TextDrawSetProportional(Textdraw1, 1);
+TextDrawSetSelectable(Textdraw1, 0);
+
+Textdraw2 = TextDrawCreate(60.000000, 385.000000, "Battle Royale");
+TextDrawBackgroundColor(Textdraw2, 757935615);
+TextDrawFont(Textdraw2, 1);
+TextDrawLetterSize(Textdraw2, 0.239999, 1.399999);
+TextDrawColor(Textdraw2, -1);
+TextDrawSetOutline(Textdraw2, 1);
+TextDrawSetProportional(Textdraw2, 1);
+TextDrawSetSelectable(Textdraw2, 0);
+
+Textdraw3 = TextDrawCreate(498.000000, 76.000000, "~r~$00000000");
+TextDrawBackgroundColor(Textdraw3, 255);
+TextDrawFont(Textdraw3, 3);
+TextDrawLetterSize(Textdraw3, 0.589999, 2.399998);
+TextDrawColor(Textdraw3, -1);
+TextDrawSetOutline(Textdraw3, 1);
+TextDrawSetProportional(Textdraw3, 1);
+TextDrawSetSelectable(Textdraw3, 0);
+
+// You can now use TextDrawShowForPlayer(-ForAll), TextDrawHideForPlayer(-ForAll) and
+// TextDrawDestroy functions to show, hide, and destroy the textdraw.

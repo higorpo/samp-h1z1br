@@ -1,0 +1,39 @@
+ /*
+
+
+
+
+
+
+
+												 _       _     _    _________     _
+												| |     | |   / |  |______  /    / |
+												| |     | |  /  |        / /    /  |
+												| |     | | / / |       / /    / / |
+												| |_____| |/_/| |      / /    /_/| |
+												|  _____  |   | |     / /        | |
+												| |     | |   | |    / /         | |
+												| |     | |   | |   / /          | |
+												| |     | | __| |__/ /______   __| |__
+												|_|     |_||______/_________| |_______|
+
+															Battle Royale
+
+*/
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+public e_COMMAND_ERRORS:OnPlayerCommandPerformed(playerid, cmdtext[], e_COMMAND_ERRORS:success) 
+{ 
+    switch (success) 
+    { 
+        case COMMAND_UNDEFINED: 
+        { 
+            SendClientMessage(playerid, Vermelho, "| ERRO | Comando invalido!");
+        } 
+    } 
+    return COMMAND_OK; 
+}  
+

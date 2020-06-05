@@ -1,0 +1,169 @@
+// TextDraw developed using Zamaroht's Textdraw Editor 1.0
+
+// On top of script:
+new Text:Textdraw0;
+new Text:Textdraw1;
+new Text:Textdraw2;
+new Text:Textdraw3;
+new Text:Textdraw4;
+new Text:Textdraw5;
+new Text:Textdraw6;
+new Text:Textdraw7;
+new Text:Textdraw8;
+new Text:Textdraw9;
+new Text:Textdraw10;
+new Text:Textdraw11;
+
+// In OnGameModeInit prefferably, we procced to create our textdraws:
+Textdraw0 = TextDrawCreate(576.000000, 55.000000, "LD_BEAT:up");
+TextDrawBackgroundColor(Textdraw0, 255);
+TextDrawFont(Textdraw0, 4);
+TextDrawLetterSize(Textdraw0, 0.500000, 1.000000);
+TextDrawColor(Textdraw0, 255);
+TextDrawSetOutline(Textdraw0, 0);
+TextDrawSetProportional(Textdraw0, 1);
+TextDrawSetShadow(Textdraw0, 1);
+TextDrawUseBox(Textdraw0, 1);
+TextDrawBoxColor(Textdraw0, 255);
+TextDrawTextSize(Textdraw0, 10.000000, 9.000000);
+TextDrawSetSelectable(Textdraw0, 0);
+
+Textdraw1 = TextDrawCreate(520.000000, 60.000000, "LD_BEAT:chit");
+TextDrawBackgroundColor(Textdraw1, 255);
+TextDrawFont(Textdraw1, 4);
+TextDrawLetterSize(Textdraw1, 0.500000, 1.000000);
+TextDrawColor(Textdraw1, 255);
+TextDrawSetOutline(Textdraw1, 0);
+TextDrawSetProportional(Textdraw1, 1);
+TextDrawSetShadow(Textdraw1, 1);
+TextDrawUseBox(Textdraw1, 1);
+TextDrawBoxColor(Textdraw1, 255);
+TextDrawTextSize(Textdraw1, 10.000000, 10.000000);
+TextDrawSetSelectable(Textdraw1, 0);
+
+Textdraw2 = TextDrawCreate(589.299987, 60.000000, "LD_BEAT:chit");
+TextDrawBackgroundColor(Textdraw2, 255);
+TextDrawFont(Textdraw2, 4);
+TextDrawLetterSize(Textdraw2, 0.500000, 1.000000);
+TextDrawColor(Textdraw2, 255);
+TextDrawSetOutline(Textdraw2, 0);
+TextDrawSetProportional(Textdraw2, 1);
+TextDrawSetShadow(Textdraw2, 1);
+TextDrawUseBox(Textdraw2, 1);
+TextDrawBoxColor(Textdraw2, 255);
+TextDrawTextSize(Textdraw2, 10.000000, 10.000000);
+TextDrawSetSelectable(Textdraw2, 0);
+
+Textdraw3 = TextDrawCreate(520.000000, 110.000000, "LD_BEAT:chit");
+TextDrawBackgroundColor(Textdraw3, 255);
+TextDrawFont(Textdraw3, 4);
+TextDrawLetterSize(Textdraw3, 0.500000, 1.000000);
+TextDrawColor(Textdraw3, 255);
+TextDrawSetOutline(Textdraw3, 0);
+TextDrawSetProportional(Textdraw3, 1);
+TextDrawSetShadow(Textdraw3, 1);
+TextDrawUseBox(Textdraw3, 1);
+TextDrawBoxColor(Textdraw3, 255);
+TextDrawTextSize(Textdraw3, 10.000000, 10.000000);
+TextDrawSetSelectable(Textdraw3, 0);
+
+Textdraw4 = TextDrawCreate(590.000000, 110.000000, "LD_BEAT:chit");
+TextDrawBackgroundColor(Textdraw4, 255);
+TextDrawFont(Textdraw4, 4);
+TextDrawLetterSize(Textdraw4, 0.500000, 1.000000);
+TextDrawColor(Textdraw4, 255);
+TextDrawSetOutline(Textdraw4, 0);
+TextDrawSetProportional(Textdraw4, 1);
+TextDrawSetShadow(Textdraw4, 1);
+TextDrawUseBox(Textdraw4, 1);
+TextDrawBoxColor(Textdraw4, 255);
+TextDrawTextSize(Textdraw4, 10.000000, 10.000000);
+TextDrawSetSelectable(Textdraw4, 0);
+
+Textdraw5 = TextDrawCreate(598.000000, 64.000000, "_");
+TextDrawBackgroundColor(Textdraw5, 255);
+TextDrawFont(Textdraw5, 1);
+TextDrawLetterSize(Textdraw5, 0.500000, 5.799999);
+TextDrawColor(Textdraw5, -1);
+TextDrawSetOutline(Textdraw5, 0);
+TextDrawSetProportional(Textdraw5, 1);
+TextDrawSetShadow(Textdraw5, 1);
+TextDrawUseBox(Textdraw5, 1);
+TextDrawBoxColor(Textdraw5, 255);
+TextDrawTextSize(Textdraw5, 523.000000, 0.000000);
+TextDrawSetSelectable(Textdraw5, 0);
+
+Textdraw6 = TextDrawCreate(600.000000, 68.000000, "_");
+TextDrawBackgroundColor(Textdraw6, 255);
+TextDrawFont(Textdraw6, 1);
+TextDrawLetterSize(Textdraw6, 0.500000, 5.099999);
+TextDrawColor(Textdraw6, -1);
+TextDrawSetOutline(Textdraw6, 0);
+TextDrawSetProportional(Textdraw6, 1);
+TextDrawSetShadow(Textdraw6, 1);
+TextDrawUseBox(Textdraw6, 1);
+TextDrawBoxColor(Textdraw6, 255);
+TextDrawTextSize(Textdraw6, 520.000000, 0.000000);
+TextDrawSetSelectable(Textdraw6, 0);
+
+Textdraw7 = TextDrawCreate(600.000000, 120.000000, "_");
+TextDrawBackgroundColor(Textdraw7, 255);
+TextDrawFont(Textdraw7, 1);
+TextDrawLetterSize(Textdraw7, 0.500000, -0.400000);
+TextDrawColor(Textdraw7, -1);
+TextDrawSetOutline(Textdraw7, 0);
+TextDrawSetProportional(Textdraw7, 1);
+TextDrawSetShadow(Textdraw7, 1);
+TextDrawUseBox(Textdraw7, 1);
+TextDrawBoxColor(Textdraw7, -1);
+TextDrawTextSize(Textdraw7, 520.000000, 0.000000);
+TextDrawSetSelectable(Textdraw7, 0);
+
+Textdraw8 = TextDrawCreate(600.000000, 73.000000, "_");
+TextDrawBackgroundColor(Textdraw8, 255);
+TextDrawFont(Textdraw8, 1);
+TextDrawLetterSize(Textdraw8, 0.500000, 1.599999);
+TextDrawColor(Textdraw8, -1);
+TextDrawSetOutline(Textdraw8, 0);
+TextDrawSetProportional(Textdraw8, 1);
+TextDrawSetShadow(Textdraw8, 1);
+TextDrawUseBox(Textdraw8, 1);
+TextDrawBoxColor(Textdraw8, 3169023);
+TextDrawTextSize(Textdraw8, 520.000000, 0.000000);
+TextDrawSetSelectable(Textdraw8, 0);
+
+Textdraw9 = TextDrawCreate(600.000000, 93.000000, "_");
+TextDrawBackgroundColor(Textdraw9, 255);
+TextDrawFont(Textdraw9, 1);
+TextDrawLetterSize(Textdraw9, 0.500000, 1.599999);
+TextDrawColor(Textdraw9, -1);
+TextDrawSetOutline(Textdraw9, 0);
+TextDrawSetProportional(Textdraw9, 1);
+TextDrawSetShadow(Textdraw9, 1);
+TextDrawUseBox(Textdraw9, 1);
+TextDrawBoxColor(Textdraw9, 3169023);
+TextDrawTextSize(Textdraw9, 520.000000, 0.000000);
+TextDrawSetSelectable(Textdraw9, 0);
+
+Textdraw10 = TextDrawCreate(530.000000, 76.000000, "Configuracoes");
+TextDrawBackgroundColor(Textdraw10, 255);
+TextDrawFont(Textdraw10, 2);
+TextDrawLetterSize(Textdraw10, 0.190000, 0.899999);
+TextDrawColor(Textdraw10, -1);
+TextDrawSetOutline(Textdraw10, 0);
+TextDrawSetProportional(Textdraw10, 1);
+TextDrawSetShadow(Textdraw10, 0);
+TextDrawSetSelectable(Textdraw10, 0);
+
+Textdraw11 = TextDrawCreate(551.000000, 96.000000, "Sair");
+TextDrawBackgroundColor(Textdraw11, 255);
+TextDrawFont(Textdraw11, 2);
+TextDrawLetterSize(Textdraw11, 0.190000, 0.899999);
+TextDrawColor(Textdraw11, -1);
+TextDrawSetOutline(Textdraw11, 0);
+TextDrawSetProportional(Textdraw11, 1);
+TextDrawSetShadow(Textdraw11, 0);
+TextDrawSetSelectable(Textdraw11, 0);
+
+// You can now use TextDrawShowForPlayer(-ForAll), TextDrawHideForPlayer(-ForAll) and
+// TextDrawDestroy functions to show, hide, and destroy the textdraw.

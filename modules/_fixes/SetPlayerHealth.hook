@@ -1,0 +1,8 @@
+SetPlayerHealthEx(playerid, health)
+{
+	SetPlayerHealth(playerid, health);
+	pInfo[playerid][vida] = health;
+	return 1;
+}
+
+#define SetPlayerHealth SetPlayerHealthEx

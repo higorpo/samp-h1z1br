@@ -1,0 +1,85 @@
+ /*
+
+
+
+
+
+
+
+                                                 _       _     _    _________     _
+                                                | |     | |   / |  |______  /    / |
+                                                | |     | |  /  |        / /    /  |
+                                                | |     | | / / |       / /    / / |
+                                                | |_____| |/_/| |      / /    /_/| |
+                                                |  _____  |   | |     / /        | |
+                                                | |     | |   | |    / /         | |
+                                                | |     | |   | |   / /          | |
+                                                | |     | | __| |__/ /______   __| |__
+                                                |_|     |_||______/_________| |_______|
+
+                                                            Battle Royale
+
+*/
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+/* Includes necessárias para o funcionamento do script */
+#include <YSI\y_hooks>
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+YCMD:setadmin(playerid, params[], help)
+{
+    #pragma unused help
+    if(pInfo[playerid][admin] < 4) return SendClientMessage(playerid, -1, "| ERRO | Você não tem permissão!");
+    if(adminInfo[playerid][logado] == false) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não está logado como admin!");
+
+    new id_player, lvl, passwording[15];
+    if(sscanf(params, "uds[15]", id_player, lvl, passwording)) return SendClientMessage(playerid, Vermelho, "| ERRO | Digite /SetAdmin [ ID ][ Nível ][ Senha do admin ]");
+    if(!IsPlayerConnected(id_player)) return SendClientMessage(playerid, Vermelho, "| ERRO | Jogador(a) não está conectado!");
+    if(playerid == id_player) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não pode setar admin a você mesmo!");
+    if(lvl > 4) return SendClientMessage(playerid, Vermelho, "| ERRO | Os níveis admins vão de 0 a 4.");
+    if(strlen(passwording) > 10) return SendClientMessage(playerid, Vermelho, "| ERRO | A senha é muito grande!");
+
+    new string[128];
+    switch(lvl)
+    {
+        case 0: format(string, sizeof(string), "| H1Z1 | O(A) Desenvolvedor(a) %s tornou o(a) %s um(a) jogador comum.", GetPlayerName(playerid), GetPlayerName(id_player)), SendClientMessage(id_player, Branco, "| INFO | Agora você é um jogador comum!");
+        case 1: format(string, sizeof(string), "| H1Z1 | O(A) Desenvolvedor(a) %s tornou o(a) %s um(a) ajudante.", GetPlayerName(playerid), GetPlayerName(id_player)), SendClientMessage(id_player, Branco, "| INFO | Agora você faz parte da administração!");
+        case 2: format(string, sizeof(string), "| H1Z1 | O(A) Desenvolvedor(a) %s tornou o(a) %s um(a) moderador(a).", GetPlayerName(playerid), GetPlayerName(id_player)), SendClientMessage(id_player, Branco, "| INFO | Agora você faz parte da administração!");
+        case 3: format(string, sizeof(string), "| H1Z1 | O(A) Desenvolvedor(a) %s tornou o(a) %s um(a) administrador.", GetPlayerName(playerid), GetPlayerName(id_player)), SendClientMessage(id_player, Branco, "| INFO | Agora você faz parte da administração!");
+        case 4: format(string, sizeof(string), "| H1Z1 | O(A) Desenvolvedor(a) %s tornou o(a) %s um(a) desenvolvedor(a).", GetPlayerName(playerid), GetPlayerName(id_player)), SendClientMessage(id_player, Branco, "| INFO | Agora você faz parte da administração!");
+    }
+    SendClientMessageToAll(Azul, string);
+    SendClientMessage(playerid, Verde, "| INFO | Admin setado com sucesso!");
+    format(string, sizeof(string), "| INFO | Agora você é um %s, sua senha para logar-se como um admin(/logaradmin) é: %s", getAdmin(id_player), passwording);
+    SendClientMessage(id_player, Branco, string);
+
+    SetAdminForPlayer(id_player, lvl, passwording);
+    return 1;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SetAdminForPlayer(playerid, lvl, pass[])
+{
+    new string[61+1+10+5+1];
+    format(string, sizeof(string), "UPDATE `contas` SET `admin`='%d', `admin_pass`='%q' WHERE `id`='%d'",
+        lvl, 
+        pass,
+        pInfo[playerid][id]);
+    db_query(Connect, string);
+
+    pInfo[playerid][admin] = lvl;
+    format(pInfo[playerid][admin_pass], 10, "%s", pass);
+    return 1;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------

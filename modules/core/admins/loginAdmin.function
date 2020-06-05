@@ -1,0 +1,95 @@
+ /*
+
+
+
+
+
+
+
+												 _       _     _    _________     _
+												| |     | |   / |  |______  /    / |
+												| |     | |  /  |        / /    /  |
+												| |     | | / / |       / /    / / |
+												| |_____| |/_/| |      / /    /_/| |
+												|  _____  |   | |     / /        | |
+												| |     | |   | |    / /         | |
+												| |     | |   | |   / /          | |
+												| |     | | __| |__/ /______   __| |__
+												|_|     |_||______/_________| |_______|
+
+															Battle Royale
+
+*/
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+/* Includes necessárias para o funcionamento do script */
+#include <YSI\y_hooks>
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
+{
+	switch(dialogid)
+	{
+		case enter_login_admin:
+		{
+			if(!response) return 0;
+			if(!strcmp(inputtext, pInfo[playerid][admin_pass], true))
+		    {
+		        SendClientMessage(playerid, Verde, "| INFO | Logado com sucesso!");
+		        adminInfo[playerid][logado] = true;
+		        return 1;
+		    }
+		    else 
+		    {
+		        adminInfo[playerid][erro_senha] ++;
+		        SendClientMessage(playerid, Vermelho, "| ERRO | Senha incorreta!");
+		        if(adminInfo[playerid][erro_senha] == 5) return Kick(playerid);
+		    }
+			return 1;
+		}
+	}
+	return 1;
+}
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+YCMD:logaradmin(playerid, params[], help)
+{
+    if(help)
+    	SendClientMessage(playerid, Branco, "Efetua login como admin");
+
+    if(pInfo[playerid][admin] == 0) return SendClientMessage(playerid, -1, "| ERRO | Você não tem permissão!"); // Verifica se o jogador é admin.
+
+    if(adminInfo[playerid][logado] == true) return SendClientMessage(playerid, Vermelho, "| ERRO | Você já está logado na administração!");
+ 		else ShowPlayerDialog(playerid, enter_login_admin, DIALOG_STYLE_PASSWORD, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+ 			"{FFFFFF}Digite a sua senha-admin:", "Efetuar login", "Cancelar");
+    return 1;
+}
+
+YCMD:senhaadmin(playerid, params[], help)
+{
+	if(help)
+		SendClientMessage(playerid, Branco, "Altera a senha para logar como admin");
+
+	if(pInfo[playerid][admin] == 0) return SendClientMessage(playerid, -1, "| ERRO | Você não tem permissão!");
+	if(adminInfo[playerid][logado] == false) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não está logado como admin!");
+
+	new newpass[15];
+	if(sscanf(params, "s[15]", newpass)) return SendClientMessage(playerid, Vermelho, "| ERRO | Digite /SenhaAdmin [ Nova senha ]");
+	if(strlen(newpass) > 10) return SendClientMessage(playerid, Vermelho, "| ERRO | A senha é muito grande!");
+
+    new string[49+10+5+1];
+    format(string, sizeof(string), "UPDATE `contas` SET `admin_pass`='%q' WHERE `id`='%d'",
+        newpass,
+        pInfo[playerid][id]);
+    db_query(Connect, string);
+
+	format(string, sizeof(string), "| INFO | Senha alterada com sucesso para: %s", newpass);
+	SendClientMessage(playerid, Verde, string);
+	return 1;
+}

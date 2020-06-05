@@ -1,0 +1,57 @@
+ /*
+
+
+
+
+
+
+
+                                                 _       _     _    _________     _
+                                                | |     | |   / |  |______  /    / |
+                                                | |     | |  /  |        / /    /  |
+                                                | |     | | / / |       / /    / / |
+                                                | |_____| |/_/| |      / /    /_/| |
+                                                |  _____  |   | |     / /        | |
+                                                | |     | |   | |    / /         | |
+                                                | |     | |   | |   / /          | |
+                                                | |     | | __| |__/ /______   __| |__
+                                                |_|     |_||______/_________| |_______|
+
+                                                            Battle Royale
+
+*/
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+// Funções
+    ClearChat(playerid, linhas) 
+    {
+        for(new b = 0; b <= linhas; b++) SendClientMessage(playerid, -1, " ");
+        return 1;
+    }
+
+    ClearChatTimer(playerid, class = 0)
+    {
+        switch(class)
+        {
+            case 0: ResetTimer[playerid] = SetTimerEx("ClearChatTimer_Func", 1000, true, "i", playerid);
+            case 1: SetTimerEx("StopClearChatForTimer", 100, false, "i", playerid);
+        }
+        return 1;
+    }
+
+    public ClearChatTimer_Func(playerid) 
+    {
+        ClearChat(playerid, 10);
+    }
+
+    public StopClearChatForTimer(playerid)
+    {
+        return KillTimer(ResetTimer[playerid]);
+    }
+
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------

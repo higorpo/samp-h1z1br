@@ -1,0 +1,117 @@
+ /*
+
+
+
+
+
+
+
+												 _       _     _    _________     _
+												| |     | |   / |  |______  /    / |
+												| |     | |  /  |        / /    /  |
+												| |     | | / / |       / /    / / |
+												| |_____| |/_/| |      / /    /_/| |
+												|  _____  |   | |     / /        | |
+												| |     | |   | |    / /         | |
+												| |     | |   | |   / /          | |
+												| |     | | __| |__/ /______   __| |__
+												|_|     |_||______/_________| |_______|
+
+															Battle Royale
+
+*/
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+/* Includes necessárias para o bom funcionamento do script */
+#include <YSI\y_hooks>
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+hook OnVehicleSpawn(vehicleid)
+{
+	SetVehicleEngine(vehicleid, false);
+	return 1;
+}
+
+hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
+{
+	if(newkeys == KEY_YES && IsPlayerInAnyVehicle(playerid))
+	{
+		new veh = GetPlayerVehicleID(playerid);
+		if(GetVehicleStatusEngine(veh))
+		{
+			SetVehicleEngine(veh, false);
+			SendClientMessage(playerid, Verde, "| INFO | Veiculo desligado com sucesso!");
+		}
+		else 
+		{
+			new Float:health;
+			GetVehicleHealth(veh, health);
+			if(health <= 300)
+			{
+				SendClientMessage(playerid, Vermelho, "| ERRO | Este veiculo está muito quebrado!");
+				return 1;
+			}
+
+			if(VehicleInfo[veh][combustivel] < 1) 
+			{
+				foreach(new i : Player)
+				{
+					if(IsPlayerInVehicle(i, veh))
+					{
+						SendClientMessage(i, Vermelho, "| ERRO | Esse veiculo está sem combustivel, ache um galão com combustivel e abasteça!");
+						break;
+					}
+				}
+				return 0;
+			}
+
+			SetVehicleEngine(veh, true);
+			SendClientMessage(playerid, Verde, "| INFO | Veiculo ligado com sucesso!");
+		}
+		return 1;
+	}
+	return 1;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SetVehicleEngine(vehicleid, bool:value)
+{
+	new engine, lights, alarm, doors, bonnet, boot, objective;
+    GetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, bonnet, boot, objective);
+	if(value == true)
+	{
+		SetVehicleParamsEx(vehicleid, VEHICLE_PARAMS_ON, lights, alarm, doors, bonnet, boot, objective);
+		VehicleInfo[vehicleid][motor] = true;
+	}
+	else
+	{
+		SetVehicleParamsEx(vehicleid, VEHICLE_PARAMS_OFF, lights, alarm, doors, bonnet, boot, objective);
+		VehicleInfo[vehicleid][motor] = false;
+	}
+	return 1;
+}
+
+GetVehicleStatusEngine(vehicleid)
+{
+    if(VehicleInfo[vehicleid][motor] == true) return 1;
+    	else return 0;
+}
+
+
+
+
+
+CMD:quebrar(playerid, params[])
+{
+	SetVehicleHealth(GetPlayerVehicleID(playerid), 600.0);
+	return 1;
+}

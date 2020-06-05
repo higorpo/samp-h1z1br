@@ -1,0 +1,115 @@
+ /*
+
+
+
+
+
+
+
+												 _       _     _    _________     _
+												| |     | |   / |  |______  /    / |
+												| |     | |  /  |        / /    /  |
+												| |     | | / / |       / /    / / |
+												| |_____| |/_/| |      / /    /_/| |
+												|  _____  |   | |     / /        | |
+												| |     | |   | |    / /         | |
+												| |     | |   | |   / /          | |
+												| |     | | __| |__/ /______   __| |__
+												|_|     |_||______/_________| |_______|
+
+															Battle Royale
+
+*/
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+/* Includes necessárias para o funcionamento do script */
+#include <YSI\y_hooks>
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+hook OnPlayerDisconnect(playerid, reason)
+{
+    DeletePVar(playerid, "chat_admin_ativado");
+    return 1;
+}
+
+hook OnPlayerText(playerid, text[])
+{
+    if(GetPVarInt(playerid, "chat_admin_ativado") == 1) 
+    {
+        SendMessageChatAdmin(playerid, text);
+        return 0;
+    }
+	return 1;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+YCMD:ac(playerid, params[], help)
+{
+    if(pInfo[playerid][admin] == 0) return SendClientMessage(playerid, -1, "| ERRO | Você não tem permissão!");
+    new Texto[100];
+    if(sscanf(params, "s[100]", Texto))
+    {
+        switch(GetPVarInt(playerid, "chat_admin_ativado"))
+        {
+            case 0:
+            {
+                SetPVarInt(playerid, "chat_admin_ativado", 1);
+                SendClientMessage(playerid, Verde, "| INFO | Chat admin ativado com sucesso, agora fale no chat normal para falar no chat admin!");
+                return 1;
+            }
+            case 1:
+            {
+                SetPVarInt(playerid, "chat_admin_ativado", 0);
+                SendClientMessage(playerid, Verde, "| INFO | Chat admin desativado!");
+                return 1;
+            }
+        }
+    }
+    if(strlen(Texto) > 90) return SendClientMessage(playerid, Vermelho, "| ERRO | Mensagem muito grande!");
+    SendMessageChatAdmin(playerid, Texto);
+    return 1;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+SendMessageChatAdmin(playerid, Texto[])
+{
+    new String[148];
+    if(strfind(Texto, "$staff", true) != -1 && pInfo[playerid][admin] == 4)
+    {
+        strdel(Texto, 0, 6);
+        format(String, sizeof(String), "| CHAT | %s diz: %s", GetPlayerName(playerid), Texto);
+        foreach(new i : Player)
+        {
+            if(pInfo[i][admin] == 4)
+            {
+                SendClientMessage(i, 0x2C46A0FF, String);
+                PlayerPlaySound(i, 1085, 0.0, 0.0, 0.0 );
+                GameTextForPlayer(i,"~w~chat ~g~desenvolvedores", 4000, 3);
+            }
+        }
+    }
+    else 
+    {
+        format(String, sizeof(String), "| CHAT | %s diz: %s", GetPlayerName(playerid), Texto);
+        foreach(new i : Player)
+        {
+            if(pInfo[i][admin] > 0)
+            {
+                SendClientMessage(i, 0x788EDAFF, String);
+                PlayerPlaySound(i, 1085, 0.0, 0.0, 0.0 );
+                GameTextForPlayer(i,"~w~chat ~b~~w~admin", 4000, 3);
+            }
+        }
+    }
+	return 1;
+}

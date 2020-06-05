@@ -1,0 +1,80 @@
+ /*
+
+
+
+
+
+
+
+												 _       _     _    _________     _
+												| |     | |   / |  |______  /    / |
+												| |     | |  /  |        / /    /  |
+												| |     | | / / |       / /    / / |
+												| |_____| |/_/| |      / /    /_/| |
+												|  _____  |   | |     / /        | |
+												| |     | |   | |    / /         | |
+												| |     | |   | |   / /          | |
+												| |     | | __| |__/ /______   __| |__
+												|_|     |_||______/_________| |_______|
+
+															Battle Royale
+
+*/
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+/* Includes necessárias para o bom funcionamento do script */
+#include <YSI\y_hooks>
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+hook OnGameModeInit()
+{
+	SetTimer("Fuel", 60000 * 2, true);
+	return 1;
+}
+
+public Fuel()
+{
+	foreach(new i : Vehicle)
+	{
+
+		if(VehicleInfo[i][motor] == true)
+		{
+			VehicleInfo[i][combustivel] --;
+			if(VehicleInfo[i][combustivel] < 1)
+			{
+				SetVehicleEngine(i, false);
+				foreach(new player : Player)
+				{
+					if(IsPlayerInVehicle(player, i))
+					{
+						SendClientMessage(player, Vermelho, "| INFO | O combustivel desse veiculo acabou, ache um galão com combustivel e abasteça!");
+						break;
+					}
+				}
+				return 1;
+			}
+			return 1;
+		}
+
+	}	
+	return 1;
+}
+
+CMD:setfuel(playerid, params[])
+{
+	if(pInfo[playerid][admin] < 4) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não tem permissão!");
+	if(adminInfo[playerid][logado] == false) return SendClientMessage(playerid, Vermelho, "| ERRO | Você não está logado como admin!");
+
+	new fuel;
+	if(sscanf(params, "d", fuel)) return SendClientMessage(playerid, Vermelho, "| ERRO | Digite /SetFuel [ Quantidade ]");
+	VehicleInfo[GetPlayerVehicleID(playerid)][combustivel] = fuel;
+
+	SendClientMessageEx(playerid, Verde, "| INFO | Foram setados %dL de combustivel para este veículo!", fuel);
+	return 1;
+}
+

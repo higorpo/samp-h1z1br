@@ -1,0 +1,1153 @@
+ /*
+
+
+
+
+
+
+
+												 _       _     _    _________     _
+												| |     | |   / |  |______  /    / |
+												| |     | |  /  |        / /    /  |
+												| |     | | / / |       / /    / / |
+												| |_____| |/_/| |      / /    /_/| |
+												|  _____  |   | |     / /        | |
+												| |     | |   | |    / /         | |
+												| |     | |   | |   / /          | |
+												| |     | | __| |__/ /______   __| |__
+												|_|     |_||______/_________| |_______|
+
+															Battle Royale
+
+*/
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+/* Includes necessárias para o funcionamento do script */
+#include <YSI\y_hooks>
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+hook OnGameModeInit()
+{
+	/* Cria a base das textdraws. */
+	menu_base[0] = TextDrawCreate(660.000000, -10.000000, "_");
+	TextDrawBackgroundColor(menu_base[0], 255);
+	TextDrawFont(menu_base[0], 1);
+	TextDrawLetterSize(menu_base[0], 0.500000, 53.000000);
+	TextDrawColor(menu_base[0], -1);
+	TextDrawSetOutline(menu_base[0], 0);
+	TextDrawSetProportional(menu_base[0], 1);
+	TextDrawSetShadow(menu_base[0], 1);
+	TextDrawUseBox(menu_base[0], 1);
+	TextDrawBoxColor(menu_base[0], 90);
+	TextDrawTextSize(menu_base[0], -10.000000, 0.000000);
+	TextDrawSetSelectable(menu_base[0], 0);
+
+	menu_base[1] = TextDrawCreate(608.000000, 40.000000, "_");
+	TextDrawBackgroundColor(menu_base[1], 255);
+	TextDrawFont(menu_base[1], 1);
+	TextDrawLetterSize(menu_base[1], 0.500000, 4.000000);
+	TextDrawColor(menu_base[1], -1);
+	TextDrawSetOutline(menu_base[1], 0);
+	TextDrawSetProportional(menu_base[1], 1);
+	TextDrawSetShadow(menu_base[1], 1);
+	TextDrawUseBox(menu_base[1], 1);
+	TextDrawBoxColor(menu_base[1], 1931945983);
+	TextDrawTextSize(menu_base[1], 30.000000, 0.000000);
+	TextDrawSetSelectable(menu_base[1], 0);
+
+	menu_base[2] = TextDrawCreate(598.000000, 40.000000, "_");
+	TextDrawBackgroundColor(menu_base[2], 255);
+	TextDrawFont(menu_base[2], 1);
+	TextDrawLetterSize(menu_base[2], 0.500000, 4.000000);
+	TextDrawColor(menu_base[2], -1);
+	TextDrawSetOutline(menu_base[2], 0);
+	TextDrawSetProportional(menu_base[2], 1);
+	TextDrawSetShadow(menu_base[2], 1);
+	TextDrawUseBox(menu_base[2], 1);
+	TextDrawBoxColor(menu_base[2], 90);
+	TextDrawTextSize(menu_base[2], 470.000000, 0.000000);
+	TextDrawSetSelectable(menu_base[2], 0);
+
+	menu_base[3] = TextDrawCreate(279.000000, 41.000000, "H1");
+	TextDrawBackgroundColor(menu_base[3], 255);
+	TextDrawFont(menu_base[3], 2);
+	TextDrawLetterSize(menu_base[3], 0.500000, 3.000000);
+	TextDrawColor(menu_base[3], -1);
+	TextDrawSetOutline(menu_base[3], 0);
+	TextDrawSetProportional(menu_base[3], 1);
+	TextDrawSetShadow(menu_base[3], 0);
+	TextDrawSetSelectable(menu_base[3], 0);
+
+	menu_base[4] = TextDrawCreate(299.000000, 35.000000, "Z");
+	TextDrawBackgroundColor(menu_base[4], 255);
+	TextDrawFont(menu_base[4], 2);
+	TextDrawLetterSize(menu_base[4], 0.569998, 4.199997);
+	TextDrawColor(menu_base[4], 1509949695);
+	TextDrawSetOutline(menu_base[4], 0);
+	TextDrawSetProportional(menu_base[4], 1);
+	TextDrawSetShadow(menu_base[4], 0);
+	TextDrawSetSelectable(menu_base[4], 0);
+
+	menu_base[5] = TextDrawCreate(312.000000, 41.000000, "1");
+	TextDrawBackgroundColor(menu_base[5], 255);
+	TextDrawFont(menu_base[5], 2);
+	TextDrawLetterSize(menu_base[5], 0.500000, 3.000000);
+	TextDrawColor(menu_base[5], -1);
+	TextDrawSetOutline(menu_base[5], 0);
+	TextDrawSetProportional(menu_base[5], 1);
+	TextDrawSetShadow(menu_base[5], 0);
+	TextDrawSetSelectable(menu_base[5], 0);
+
+	menu_base[6] = TextDrawCreate(480.000000, 38.000000, "LD_BEAT:chit");
+	TextDrawBackgroundColor(menu_base[6], 255);
+	TextDrawFont(menu_base[6], 4);
+	TextDrawLetterSize(menu_base[6], 0.500000, 1.000000);
+	TextDrawColor(menu_base[6], -1);
+	TextDrawSetOutline(menu_base[6], 0);
+	TextDrawSetProportional(menu_base[6], 1);
+	TextDrawSetShadow(menu_base[6], 1);
+	TextDrawUseBox(menu_base[6], 1);
+	TextDrawBoxColor(menu_base[6], 255);
+	TextDrawTextSize(menu_base[6], 30.000000, 40.000000);
+	TextDrawSetSelectable(menu_base[6], 0);
+
+	menu_base[7] = TextDrawCreate(576.000000, 53.000000, "LD_BEAT:down");
+	TextDrawBackgroundColor(menu_base[7], 255);
+	TextDrawFont(menu_base[7], 4);
+	TextDrawLetterSize(menu_base[7], 0.500000, 1.000000);
+	TextDrawColor(menu_base[7], 255);
+	TextDrawSetOutline(menu_base[7], 0);
+	TextDrawSetProportional(menu_base[7], 1);
+	TextDrawSetShadow(menu_base[7], 1);
+	TextDrawUseBox(menu_base[7], 1);
+	TextDrawBoxColor(menu_base[7], 255);
+	TextDrawTextSize(menu_base[7], 10.000000, 10.000000);
+	TextDrawSetSelectable(menu_base[7], 1);
+
+	menu_base[8] = TextDrawCreate(587.000000, 55.000000, "_");
+	TextDrawBackgroundColor(menu_base[8], 255);
+	TextDrawFont(menu_base[8], 1);
+	TextDrawLetterSize(menu_base[8], 0.500000, -0.200000);
+	TextDrawColor(menu_base[8], -1);
+	TextDrawSetOutline(menu_base[8], 0);
+	TextDrawSetProportional(menu_base[8], 1);
+	TextDrawSetShadow(menu_base[8], 1);
+	TextDrawUseBox(menu_base[8], 1);
+	TextDrawBoxColor(menu_base[8], 1243159039);
+	TextDrawTextSize(menu_base[8], 572.000000, 0.000000);
+	TextDrawSetSelectable(menu_base[8], 0);
+
+	menu_base[9] = TextDrawCreate(608.000000, 81.000000, "_");
+	TextDrawBackgroundColor(menu_base[9], 255);
+	TextDrawFont(menu_base[9], 1);
+	TextDrawLetterSize(menu_base[9], 0.500000, 2.000000);
+	TextDrawColor(menu_base[9], -1);
+	TextDrawSetOutline(menu_base[9], 0);
+	TextDrawSetProportional(menu_base[9], 1);
+	TextDrawSetShadow(menu_base[9], 1);
+	TextDrawUseBox(menu_base[9], 1);
+	TextDrawBoxColor(menu_base[9], 1243159039);
+	TextDrawTextSize(menu_base[9], 30.000000, 0.000000);
+	TextDrawSetSelectable(menu_base[9], 0);
+
+	menu_base[10] = TextDrawCreate(608.000000, 102.000000, "_");
+	TextDrawBackgroundColor(menu_base[10], 255);
+	TextDrawFont(menu_base[10], 1);
+	TextDrawLetterSize(menu_base[10], 0.500000, 34.000000);
+	TextDrawColor(menu_base[10], -1);
+	TextDrawSetOutline(menu_base[10], 0);
+	TextDrawSetProportional(menu_base[10], 1);
+	TextDrawSetShadow(menu_base[10], 1);
+	TextDrawUseBox(menu_base[10], 1);
+	TextDrawBoxColor(menu_base[10], 150);
+	TextDrawTextSize(menu_base[10], 30.000000, 0.000000);
+	TextDrawSetSelectable(menu_base[10], 0);
+
+
+
+
+
+	/* Menu - configurações */
+	menu_configuracoes[0] = TextDrawCreate(82.000000, 130.000000, "Configuracoes");
+	TextDrawBackgroundColor(menu_configuracoes[0], 255);
+	TextDrawFont(menu_configuracoes[0], 2);
+	TextDrawLetterSize(menu_configuracoes[0], 0.300000, 2.000000);
+	TextDrawColor(menu_configuracoes[0], -808464385);
+	TextDrawSetOutline(menu_configuracoes[0], 0);
+	TextDrawSetProportional(menu_configuracoes[0], 1);
+	TextDrawSetShadow(menu_configuracoes[0], 0);
+	TextDrawSetSelectable(menu_configuracoes[0], 0);
+
+	menu_configuracoes[1] = TextDrawCreate(550.000000, 150.000000, "_");
+	TextDrawBackgroundColor(menu_configuracoes[1], 255);
+	TextDrawFont(menu_configuracoes[1], 2);
+	TextDrawLetterSize(menu_configuracoes[1], 0.500000, -0.400000);
+	TextDrawColor(menu_configuracoes[1], -1);
+	TextDrawSetOutline(menu_configuracoes[1], 0);
+	TextDrawSetProportional(menu_configuracoes[1], 1);
+	TextDrawSetShadow(menu_configuracoes[1], 1);
+	TextDrawUseBox(menu_configuracoes[1], 1);
+	TextDrawBoxColor(menu_configuracoes[1], -808464385);
+	TextDrawTextSize(menu_configuracoes[1], 80.000000, 0.000000);
+	TextDrawSetSelectable(menu_configuracoes[1], 0);
+
+	menu_configuracoes[2] = TextDrawCreate(93.000000, 81.000000, "_");
+	TextDrawBackgroundColor(menu_configuracoes[2], 255);
+	TextDrawFont(menu_configuracoes[2], 1);
+	TextDrawLetterSize(menu_configuracoes[2], 0.500000, 1.799998);
+	TextDrawColor(menu_configuracoes[2], -1);
+	TextDrawSetOutline(menu_configuracoes[2], 0);
+	TextDrawSetProportional(menu_configuracoes[2], 1);
+	TextDrawSetShadow(menu_configuracoes[2], 1);
+	TextDrawUseBox(menu_configuracoes[2], 1);
+	TextDrawBoxColor(menu_configuracoes[2], 50);
+	TextDrawTextSize(menu_configuracoes[2], 30.000000, 0.000000);
+	TextDrawSetSelectable(menu_configuracoes[2], 0);
+
+	menu_configuracoes[3] = TextDrawCreate(51.000000, 84.000000, "voltar");
+	TextDrawBackgroundColor(menu_configuracoes[3], 255);
+	TextDrawFont(menu_configuracoes[3], 2);
+	TextDrawLetterSize(menu_configuracoes[3], 0.129999, 1.100000);
+	TextDrawColor(menu_configuracoes[3], -1);
+	TextDrawSetOutline(menu_configuracoes[3], 0);
+	TextDrawSetProportional(menu_configuracoes[3], 1);
+	TextDrawSetShadow(menu_configuracoes[3], 0);
+	TextDrawTextSize(menu_configuracoes[3], 85.000000, 13.000000);
+	TextDrawSetSelectable(menu_configuracoes[3], 1);
+
+	menu_configuracoes[4] = TextDrawCreate(550.000000, 150.000000, "_");
+	TextDrawBackgroundColor(menu_configuracoes[4], 255);
+	TextDrawFont(menu_configuracoes[4], 1);
+	TextDrawLetterSize(menu_configuracoes[4], 0.500000, 13.600000);
+	TextDrawColor(menu_configuracoes[4], -1);
+	TextDrawSetOutline(menu_configuracoes[4], 0);
+	TextDrawSetProportional(menu_configuracoes[4], 1);
+	TextDrawSetShadow(menu_configuracoes[4], 1);
+	TextDrawUseBox(menu_configuracoes[4], 1);
+	TextDrawBoxColor(menu_configuracoes[4], -808464385);
+	TextDrawTextSize(menu_configuracoes[4], 451.000000, 0.000000);
+	TextDrawSetSelectable(menu_configuracoes[4], 0);
+
+	menu_configuracoes[5] = TextDrawCreate(452.000000, 144.000000, "user");
+	TextDrawBackgroundColor(menu_configuracoes[5], 0);
+	TextDrawFont(menu_configuracoes[5], 5);
+	TextDrawLetterSize(menu_configuracoes[5], 0.500000, 1.000000);
+	TextDrawColor(menu_configuracoes[5], -1);
+	TextDrawSetOutline(menu_configuracoes[5], 0);
+	TextDrawSetProportional(menu_configuracoes[5], 1);
+	TextDrawSetShadow(menu_configuracoes[5], 1);
+	TextDrawUseBox(menu_configuracoes[5], 1);
+	TextDrawBoxColor(menu_configuracoes[5], 255);
+	TextDrawTextSize(menu_configuracoes[5], 100.000000, 130.000000);
+	TextDrawSetPreviewModel(menu_configuracoes[5], 1);
+	TextDrawSetPreviewRot(menu_configuracoes[5], -10.000000, 0.000000, -10.000000, 1.000000);
+	TextDrawSetSelectable(menu_configuracoes[5], 0);
+
+	menu_configuracoes[6] = TextDrawCreate(550.000000, 270.000000, "_");
+	TextDrawBackgroundColor(menu_configuracoes[6], 255);
+	TextDrawFont(menu_configuracoes[6], 1);
+	TextDrawLetterSize(menu_configuracoes[6], 0.500000, 2.599999);
+	TextDrawColor(menu_configuracoes[6], -1);
+	TextDrawSetOutline(menu_configuracoes[6], 0);
+	TextDrawSetProportional(menu_configuracoes[6], 1);
+	TextDrawSetShadow(menu_configuracoes[6], 1);
+	TextDrawUseBox(menu_configuracoes[6], 1);
+	TextDrawBoxColor(menu_configuracoes[6], 1931945983);
+	TextDrawTextSize(menu_configuracoes[6], 451.000000, 0.000000);
+	TextDrawSetSelectable(menu_configuracoes[6], 0);
+
+	menu_configuracoes[7] = TextDrawCreate(476.000000, 274.000000, "Alterar");
+	TextDrawBackgroundColor(menu_configuracoes[7], 255);
+	TextDrawFont(menu_configuracoes[7], 2);
+	TextDrawLetterSize(menu_configuracoes[7], 0.270000, 1.399999);
+	TextDrawColor(menu_configuracoes[7], -1);
+	TextDrawSetOutline(menu_configuracoes[7], 0);
+	TextDrawSetProportional(menu_configuracoes[7], 1);
+	TextDrawSetShadow(menu_configuracoes[7], 0);
+	TextDrawTextSize(menu_configuracoes[7], 526.000000, 18.000000);
+	TextDrawSetSelectable(menu_configuracoes[7], 1);
+
+	menu_configuracoes[8] = TextDrawCreate(447.000000, 157.000000, "_");
+	TextDrawBackgroundColor(menu_configuracoes[8], 255);
+	TextDrawFont(menu_configuracoes[8], 1);
+	TextDrawLetterSize(menu_configuracoes[8], 0.500000, 3.700000);
+	TextDrawColor(menu_configuracoes[8], -1);
+	TextDrawSetOutline(menu_configuracoes[8], 0);
+	TextDrawSetProportional(menu_configuracoes[8], 1);
+	TextDrawSetShadow(menu_configuracoes[8], 1);
+	TextDrawUseBox(menu_configuracoes[8], 1);
+	TextDrawBoxColor(menu_configuracoes[8], 1931945983);
+	TextDrawTextSize(menu_configuracoes[8], 80.000000, 0.000000);
+	TextDrawSetSelectable(menu_configuracoes[8], 0);
+
+	menu_configuracoes[9] = TextDrawCreate(447.000000, 209.000000, "_");
+	TextDrawBackgroundColor(menu_configuracoes[9], 255);
+	TextDrawFont(menu_configuracoes[9], 1);
+	TextDrawLetterSize(menu_configuracoes[9], 0.500000, 3.700000);
+	TextDrawColor(menu_configuracoes[9], -1);
+	TextDrawSetOutline(menu_configuracoes[9], 0);
+	TextDrawSetProportional(menu_configuracoes[9], 1);
+	TextDrawSetShadow(menu_configuracoes[9], 1);
+	TextDrawUseBox(menu_configuracoes[9], 1);
+	TextDrawBoxColor(menu_configuracoes[9], 1931945983);
+	TextDrawTextSize(menu_configuracoes[9], 80.000000, 0.000000);
+	TextDrawSetSelectable(menu_configuracoes[9], 0);
+
+	menu_configuracoes[10] = TextDrawCreate(447.000000, 260.000000, "_");
+	TextDrawBackgroundColor(menu_configuracoes[10], 255);
+	TextDrawFont(menu_configuracoes[10], 1);
+	TextDrawLetterSize(menu_configuracoes[10], 0.500000, 3.700000);
+	TextDrawColor(menu_configuracoes[10], -1);
+	TextDrawSetOutline(menu_configuracoes[10], 0);
+	TextDrawSetProportional(menu_configuracoes[10], 1);
+	TextDrawSetShadow(menu_configuracoes[10], 1);
+	TextDrawUseBox(menu_configuracoes[10], 1);
+	TextDrawBoxColor(menu_configuracoes[10], 1931945983);
+	TextDrawTextSize(menu_configuracoes[10], 80.000000, 0.000000);
+	TextDrawSetSelectable(menu_configuracoes[10], 0);
+
+	menu_configuracoes[11] = TextDrawCreate(234.000000, 162.000000, "alterar nick");
+	TextDrawBackgroundColor(menu_configuracoes[11], 255);
+	TextDrawFont(menu_configuracoes[11], 2);
+	TextDrawLetterSize(menu_configuracoes[11], 0.300000, 2.000000);
+	TextDrawColor(menu_configuracoes[11], -1);
+	TextDrawSetOutline(menu_configuracoes[11], 0);
+	TextDrawSetProportional(menu_configuracoes[11], 1);
+	TextDrawSetShadow(menu_configuracoes[11], 0);
+	TextDrawTextSize(menu_configuracoes[11], 354.000000, 13.000000);
+	TextDrawSetSelectable(menu_configuracoes[11], 1);
+
+	menu_configuracoes[12] = TextDrawCreate(227.000000, 215.000000, "alterar senha");
+	TextDrawBackgroundColor(menu_configuracoes[12], 255);
+	TextDrawFont(menu_configuracoes[12], 2);
+	TextDrawLetterSize(menu_configuracoes[12], 0.300000, 2.000000);
+	TextDrawColor(menu_configuracoes[12], -1);
+	TextDrawSetOutline(menu_configuracoes[12], 0);
+	TextDrawSetProportional(menu_configuracoes[12], 1);
+	TextDrawSetShadow(menu_configuracoes[12], 0);
+	TextDrawTextSize(menu_configuracoes[12], 354.000000, 13.000000);
+	TextDrawSetSelectable(menu_configuracoes[12], 1);
+
+	menu_configuracoes[13] = TextDrawCreate(230.000000, 266.000000, "alterar email");
+	TextDrawBackgroundColor(menu_configuracoes[13], 255);
+	TextDrawFont(menu_configuracoes[13], 2);
+	TextDrawLetterSize(menu_configuracoes[13], 0.300000, 2.000000);
+	TextDrawColor(menu_configuracoes[13], -1);
+	TextDrawSetOutline(menu_configuracoes[13], 0);
+	TextDrawSetProportional(menu_configuracoes[13], 1);
+	TextDrawSetShadow(menu_configuracoes[13], 0);
+	TextDrawTextSize(menu_configuracoes[13], 354.000000, 13.000000);
+	TextDrawSetSelectable(menu_configuracoes[13], 1);
+
+	menu_configuracoes[14] = TextDrawCreate(80.000000, 306.000000, "Nos nao nos responsabilizamos por perda de nick, senha ou email. Caso voce perca qualquer um dos citados acima,~n~nossa equipe nao podera ajuda-lo, por isso certifique-se de sempre colocar uma senha/nick que voce ira se~n~lembrar.");
+	TextDrawBackgroundColor(menu_configuracoes[14], 255);
+	TextDrawFont(menu_configuracoes[14], 2);
+	TextDrawLetterSize(menu_configuracoes[14], 0.180000, 1.099998);
+	TextDrawColor(menu_configuracoes[14], -639772161);
+	TextDrawSetOutline(menu_configuracoes[14], 0);
+	TextDrawSetProportional(menu_configuracoes[14], 1);
+	TextDrawSetShadow(menu_configuracoes[14], 0);
+	TextDrawSetSelectable(menu_configuracoes[14], 0);
+
+
+
+
+
+
+	/* Index */
+
+	menu_index[0] = TextDrawCreate(136.000000, 137.000000, "H1");
+	TextDrawBackgroundColor(menu_index[0], 255);
+	TextDrawFont(menu_index[0], 2);
+	TextDrawLetterSize(menu_index[0], 0.970000, 8.199998);
+	TextDrawColor(menu_index[0], 0xFFFFFFFF);
+	TextDrawSetOutline(menu_index[0], 0);
+	TextDrawSetProportional(menu_index[0], 1);
+	TextDrawSetShadow(menu_index[0], 0);
+	TextDrawSetSelectable(menu_index[0], 0);
+
+	menu_index[1] = TextDrawCreate(175.000000, 109.000000, "Z");
+	TextDrawBackgroundColor(menu_index[1], 255);
+	TextDrawFont(menu_index[1], 2);
+	TextDrawLetterSize(menu_index[1], 1.269999, 13.199998);
+	TextDrawColor(menu_index[1], 0x5A0000FF);
+	TextDrawSetOutline(menu_index[1], 0);
+	TextDrawSetProportional(menu_index[1], 1);
+	TextDrawSetShadow(menu_index[1], 0);
+	TextDrawSetSelectable(menu_index[1], 0);
+
+	menu_index[2] = TextDrawCreate(203.000000, 137.000000, "1");
+	TextDrawBackgroundColor(menu_index[2], 255);
+	TextDrawFont(menu_index[2], 2);
+	TextDrawLetterSize(menu_index[2], 0.970000, 8.199998);
+	TextDrawColor(menu_index[2], 0xFFFFFFFF);
+	TextDrawSetOutline(menu_index[2], 0);
+	TextDrawSetProportional(menu_index[2], 1);
+	TextDrawSetShadow(menu_index[2], 0);
+
+	menu_index[3] = TextDrawCreate(320.000000, 103.000000, "_");
+	TextDrawBackgroundColor(menu_index[3], 255);
+	TextDrawFont(menu_index[3], 1);
+	TextDrawLetterSize(menu_index[3], 0.500000, 33.756000);
+	TextDrawColor(menu_index[3], -1);
+	TextDrawSetOutline(menu_index[3], 0);
+	TextDrawSetProportional(menu_index[3], 1);
+	TextDrawSetShadow(menu_index[3], 1);
+	TextDrawUseBox(menu_index[3], 1);
+	TextDrawBoxColor(menu_index[3], 438117119);
+	TextDrawTextSize(menu_index[3], 31.000000, 0.000000);
+	TextDrawSetSelectable(menu_index[3], 0);
+
+	menu_index[4] = TextDrawCreate(607.000000, 103.000000, "_");
+	TextDrawBackgroundColor(menu_index[4], 255);
+	TextDrawFont(menu_index[4], 1);
+	TextDrawLetterSize(menu_index[4], 0.500000, 33.756000);
+	TextDrawColor(menu_index[4], -1);
+	TextDrawSetOutline(menu_index[4], 0);
+	TextDrawSetProportional(menu_index[4], 1);
+	TextDrawSetShadow(menu_index[4], 1);
+	TextDrawUseBox(menu_index[4], 1);
+	TextDrawBoxColor(menu_index[4], 438117119);
+	TextDrawTextSize(menu_index[4], 317.000000, 0.000000);
+	TextDrawSetSelectable(menu_index[4], 0);
+
+	menu_index[5] = TextDrawCreate(74.000000, 180.000000, "usuario");
+	TextDrawBackgroundColor(menu_index[5], 0);
+	TextDrawFont(menu_index[5], 5);
+	TextDrawLetterSize(menu_index[5], 0.500000, 1.000000);
+	TextDrawColor(menu_index[5], -1);
+	TextDrawSetOutline(menu_index[5], 1);
+	TextDrawSetProportional(menu_index[5], 1);
+	TextDrawUseBox(menu_index[5], 1);
+	TextDrawBoxColor(menu_index[5], 255);
+	TextDrawTextSize(menu_index[5], 100.000000, 119.000000);
+	TextDrawSetPreviewModel(menu_index[5], 146);
+	TextDrawSetPreviewRot(menu_index[5], -16.000000, 0.000000, -20.000000, 1.000000);
+	TextDrawSetSelectable(menu_index[5], 0);
+
+	menu_index[6] = TextDrawCreate(176.000000, 180.000000, "usuario");
+	TextDrawBackgroundColor(menu_index[6], 0);
+	TextDrawFont(menu_index[6], 5);
+	TextDrawLetterSize(menu_index[6], 0.500000, 1.000000);
+	TextDrawColor(menu_index[6], -1);
+	TextDrawSetOutline(menu_index[6], 0);
+	TextDrawSetProportional(menu_index[6], 1);
+	TextDrawSetShadow(menu_index[6], 1);
+	TextDrawUseBox(menu_index[6], 1);
+	TextDrawBoxColor(menu_index[6], 255);
+	TextDrawTextSize(menu_index[6], 100.000000, 119.000000);
+	TextDrawSetPreviewModel(menu_index[6], 145);
+	TextDrawSetPreviewRot(menu_index[6], -16.000000, 0.000000, 20.000000, 1.000000);
+	TextDrawSetSelectable(menu_index[6], 0);
+
+	menu_index[7] = TextDrawCreate(140.000000, 162.000000, "usuario");
+	TextDrawBackgroundColor(menu_index[7], 0);
+	TextDrawFont(menu_index[7], 5);
+	TextDrawLetterSize(menu_index[7], 0.500000, 1.000000);
+	TextDrawColor(menu_index[7], -1);
+	TextDrawSetOutline(menu_index[7], 1);
+	TextDrawSetProportional(menu_index[7], 1);
+	TextDrawUseBox(menu_index[7], 1);
+	TextDrawBoxColor(menu_index[7], 255);
+	TextDrawTextSize(menu_index[7], 125.000000, 162.000000);
+	TextDrawSetPreviewModel(menu_index[7], 137);
+	TextDrawSetPreviewRot(menu_index[7], -16.000000, 0.000000, 10.000000, 1.000000);
+	TextDrawSetSelectable(menu_index[7], 0);
+
+	menu_index[8] = TextDrawCreate(85.000000, 162.000000, "usuario");
+	TextDrawBackgroundColor(menu_index[8], 0);
+	TextDrawFont(menu_index[8], 5);
+	TextDrawLetterSize(menu_index[8], 0.500000, 1.000000);
+	TextDrawColor(menu_index[8], -1);
+	TextDrawSetOutline(menu_index[8], 1);
+	TextDrawSetProportional(menu_index[8], 1);
+	TextDrawUseBox(menu_index[8], 1);
+	TextDrawBoxColor(menu_index[8], 255);
+	TextDrawTextSize(menu_index[8], 125.000000, 162.000000);
+	TextDrawSetPreviewModel(menu_index[8], 134);
+	TextDrawSetPreviewRot(menu_index[8], -16.000000, 0.000000, -10.000000, 1.000000);
+	TextDrawSetSelectable(menu_index[8], 0);
+
+	menu_index[9] = TextDrawCreate(111.000000, 157.000000, "usuario");
+	TextDrawBackgroundColor(menu_index[9], 0);
+	TextDrawFont(menu_index[9], 5);
+	TextDrawLetterSize(menu_index[9], 0.500000, 1.000000);
+	TextDrawColor(menu_index[9], -1);
+	TextDrawSetOutline(menu_index[9], 1);
+	TextDrawSetProportional(menu_index[9], 1);
+	TextDrawUseBox(menu_index[9], 1);
+	TextDrawBoxColor(menu_index[9], 255);
+	TextDrawTextSize(menu_index[9], 131.000000, 184.000000);
+	TextDrawSetPreviewModel(menu_index[9], 144);
+	TextDrawSetPreviewRot(menu_index[9], -16.000000, 0.000000, 0.000000, 1.000000);
+	TextDrawSetSelectable(menu_index[9], 0);
+
+	menu_index[10] = TextDrawCreate(237.000000, 254.000000, "Battle");
+	TextDrawBackgroundColor(menu_index[10], 255);
+	TextDrawFont(menu_index[10], 2);
+	TextDrawLetterSize(menu_index[10], 0.430000, 2.400000);
+	TextDrawColor(menu_index[10], -1);
+	TextDrawSetOutline(menu_index[10], 0);
+	TextDrawSetProportional(menu_index[10], 1);
+	TextDrawSetShadow(menu_index[10], 0);
+	TextDrawSetSelectable(menu_index[10], 0);
+
+	menu_index[11] = TextDrawCreate(237.000000, 269.000000, "Royale");
+	TextDrawBackgroundColor(menu_index[11], 255);
+	TextDrawFont(menu_index[11], 2);
+	TextDrawLetterSize(menu_index[11], 0.419999, 2.400000);
+	TextDrawColor(menu_index[11], -1);
+	TextDrawSetOutline(menu_index[11], 0);
+	TextDrawSetProportional(menu_index[11], 1);
+	TextDrawSetShadow(menu_index[11], 0);
+	TextDrawSetSelectable(menu_index[11], 0);
+
+	menu_index[12] = TextDrawCreate(319.000000, 308.000000, "_");
+	TextDrawBackgroundColor(menu_index[12], 255);
+	TextDrawFont(menu_index[12], 1);
+	TextDrawLetterSize(menu_index[12], 0.500000, 3.299998);
+	TextDrawColor(menu_index[12], -1);
+	TextDrawSetOutline(menu_index[12], 0);
+	TextDrawSetProportional(menu_index[12], 1);
+	TextDrawSetShadow(menu_index[12], 1);
+	TextDrawUseBox(menu_index[12], 1);
+	TextDrawBoxColor(menu_index[12], 1509949695);
+	TextDrawTextSize(menu_index[12], 219.000000, 0.000000);
+	TextDrawSetSelectable(menu_index[12], 0);
+
+	menu_index[13] = TextDrawCreate(318.000000, 306.000000, "_");
+	TextDrawBackgroundColor(menu_index[13], 255);
+	TextDrawFont(menu_index[13], 1);
+	TextDrawLetterSize(menu_index[13], 0.500000, 3.299998);
+	TextDrawColor(menu_index[13], -1);
+	TextDrawSetOutline(menu_index[13], 0);
+	TextDrawSetProportional(menu_index[13], 1);
+	TextDrawSetShadow(menu_index[13], 1);
+	TextDrawUseBox(menu_index[13], 1);
+	TextDrawBoxColor(menu_index[13], 1931945983);
+	TextDrawTextSize(menu_index[13], 218.000000, 0.000000);
+	TextDrawSetSelectable(menu_index[13], 0);
+
+	menu_index[14] = TextDrawCreate(319.000000, 348.000000, "_");
+	TextDrawBackgroundColor(menu_index[14], 255);
+	TextDrawFont(menu_index[14], 1);
+	TextDrawLetterSize(menu_index[14], 0.500000, 3.299998);
+	TextDrawColor(menu_index[14], -1);
+	TextDrawSetOutline(menu_index[14], 0);
+	TextDrawSetProportional(menu_index[14], 1);
+	TextDrawSetShadow(menu_index[14], 1);
+	TextDrawUseBox(menu_index[14], 1);
+	TextDrawBoxColor(menu_index[14], 1509949695);
+	TextDrawTextSize(menu_index[14], 219.000000, 0.000000);
+	TextDrawSetSelectable(menu_index[14], 0);
+
+	menu_index[15] = TextDrawCreate(318.000000, 346.000000, "_");
+	TextDrawBackgroundColor(menu_index[15], 255);
+	TextDrawFont(menu_index[15], 1);
+	TextDrawLetterSize(menu_index[15], 0.500000, 3.299998);
+	TextDrawColor(menu_index[15], -1);
+	TextDrawSetOutline(menu_index[15], 0);
+	TextDrawSetProportional(menu_index[15], 1);
+	TextDrawSetShadow(menu_index[15], 1);
+	TextDrawUseBox(menu_index[15], 1);
+	TextDrawBoxColor(menu_index[15], 1931945983);
+	TextDrawTextSize(menu_index[15], 218.000000, 0.000000);
+	TextDrawSetSelectable(menu_index[15], 0);
+
+	menu_index[16] = TextDrawCreate(230.000000, 311.000000, "Jogar sozinho");
+	TextDrawBackgroundColor(menu_index[16], 255);
+	TextDrawFont(menu_index[16], 2);
+	TextDrawLetterSize(menu_index[16], 0.230000, 1.799999);
+	TextDrawColor(menu_index[16], -1);
+	TextDrawSetOutline(menu_index[16], 0);
+	TextDrawSetProportional(menu_index[16], 1);
+	TextDrawSetShadow(menu_index[16], 0);
+	TextDrawTextSize(menu_index[16], 310.000000, 13.000000);
+	TextDrawSetSelectable(menu_index[16], 1);
+
+	menu_index[17] = TextDrawCreate(227.000000, 352.000000, "Jogar em grupo");
+	TextDrawBackgroundColor(menu_index[17], 255);
+	TextDrawFont(menu_index[17], 2);
+	TextDrawLetterSize(menu_index[17], 0.230000, 1.700000);
+	TextDrawColor(menu_index[17], -1);
+	TextDrawSetOutline(menu_index[17], 0);
+	TextDrawSetProportional(menu_index[17], 1);
+	TextDrawSetShadow(menu_index[17], 0);
+	TextDrawTextSize(menu_index[17], 310.000000, 13.000000);
+	TextDrawSetSelectable(menu_index[17], 1);
+
+	menu_index[18] = TextDrawCreate(57.000000, 229.000000, "modo");
+	TextDrawBackgroundColor(menu_index[18], 255);
+	TextDrawFont(menu_index[18], 2);
+	TextDrawLetterSize(menu_index[18], 0.469999, 2.200000);
+	TextDrawColor(menu_index[18], -1);
+	TextDrawSetOutline(menu_index[18], 0);
+	TextDrawSetProportional(menu_index[18], 1);
+	TextDrawSetShadow(menu_index[18], 0);
+	TextDrawSetSelectable(menu_index[18], 0);
+
+	menu_index[19] = TextDrawCreate(55.000000, 243.000000, "sobrevivencia");
+	TextDrawBackgroundColor(menu_index[19], 255);
+	TextDrawFont(menu_index[19], 2);
+	TextDrawLetterSize(menu_index[19], 0.180000, 1.899999);
+	TextDrawColor(menu_index[19], -1);
+	TextDrawSetOutline(menu_index[19], 0);
+	TextDrawSetProportional(menu_index[19], 1);
+	TextDrawSetShadow(menu_index[19], 0);
+	TextDrawSetSelectable(menu_index[19], 0);
+
+	menu_index[20] = TextDrawCreate(133.800003, 276.000000, "_");
+	TextDrawBackgroundColor(menu_index[20], 255);
+	TextDrawFont(menu_index[20], 1);
+	TextDrawLetterSize(menu_index[20], 0.500000, 3.399998);
+	TextDrawColor(menu_index[20], -1);
+	TextDrawSetOutline(menu_index[20], 0);
+	TextDrawSetProportional(menu_index[20], 1);
+	TextDrawSetShadow(menu_index[20], 1);
+	TextDrawUseBox(menu_index[20], 1);
+	TextDrawBoxColor(menu_index[20], 1509949695);
+	TextDrawTextSize(menu_index[20], 33.000000, 30.000000);
+	TextDrawSetSelectable(menu_index[20], 0);
+
+	menu_index[21] = TextDrawCreate(133.000000, 275.000000, "_");
+	TextDrawBackgroundColor(menu_index[21], 255);
+	TextDrawFont(menu_index[21], 1);
+	TextDrawLetterSize(menu_index[21], 0.500000, 3.399998);
+	TextDrawColor(menu_index[21], -1);
+	TextDrawSetOutline(menu_index[21], 0);
+	TextDrawSetProportional(menu_index[21], 1);
+	TextDrawSetShadow(menu_index[21], 1);
+	TextDrawUseBox(menu_index[21], 1);
+	TextDrawBoxColor(menu_index[21], 1931945983);
+	TextDrawTextSize(menu_index[21], 32.000000, 0.000000);
+	TextDrawSetSelectable(menu_index[21], 0);
+
+	menu_index[22] = TextDrawCreate(51.000000, 281.000000, "jogar agora");
+	TextDrawBackgroundColor(menu_index[22], 255);
+	TextDrawFont(menu_index[22], 2);
+	TextDrawLetterSize(menu_index[22], 0.219999, 1.600000);
+	TextDrawColor(menu_index[22], -1);
+	TextDrawSetOutline(menu_index[22], 0);
+	TextDrawSetProportional(menu_index[22], 1);
+	TextDrawSetShadow(menu_index[22], 0);
+	TextDrawTextSize(menu_index[22], 130.000000, 13.000000);
+	TextDrawSetSelectable(menu_index[22], 1);
+
+
+
+	/* Cria as textdraws do menu do player */
+	menu_exibir_menuPlayer[0] = TextDrawCreate(576.000000, 55.000000, "LD_BEAT:up");
+	TextDrawBackgroundColor(menu_exibir_menuPlayer[0], 255);
+	TextDrawFont(menu_exibir_menuPlayer[0], 4);
+	TextDrawLetterSize(menu_exibir_menuPlayer[0], 0.500000, 1.000000);
+	TextDrawColor(menu_exibir_menuPlayer[0], 255);
+	TextDrawSetOutline(menu_exibir_menuPlayer[0], 0);
+	TextDrawSetProportional(menu_exibir_menuPlayer[0], 1);
+	TextDrawSetShadow(menu_exibir_menuPlayer[0], 1);
+	TextDrawUseBox(menu_exibir_menuPlayer[0], 1);
+	TextDrawBoxColor(menu_exibir_menuPlayer[0], 255);
+	TextDrawTextSize(menu_exibir_menuPlayer[0], 10.000000, 9.000000);
+	TextDrawSetSelectable(menu_exibir_menuPlayer[0], 1);
+
+	menu_exibir_menuPlayer[1] = TextDrawCreate(520.000000, 60.000000, "LD_BEAT:chit");
+	TextDrawBackgroundColor(menu_exibir_menuPlayer[1], 255);
+	TextDrawFont(menu_exibir_menuPlayer[1], 4);
+	TextDrawLetterSize(menu_exibir_menuPlayer[1], 0.500000, 1.000000);
+	TextDrawColor(menu_exibir_menuPlayer[1], 255);
+	TextDrawSetOutline(menu_exibir_menuPlayer[1], 0);
+	TextDrawSetProportional(menu_exibir_menuPlayer[1], 1);
+	TextDrawSetShadow(menu_exibir_menuPlayer[1], 1);
+	TextDrawUseBox(menu_exibir_menuPlayer[1], 1);
+	TextDrawBoxColor(menu_exibir_menuPlayer[1], 255);
+	TextDrawTextSize(menu_exibir_menuPlayer[1], 10.000000, 10.000000);
+	TextDrawSetSelectable(menu_exibir_menuPlayer[1], 0);
+
+	menu_exibir_menuPlayer[2] = TextDrawCreate(589.299987, 60.000000, "LD_BEAT:chit");
+	TextDrawBackgroundColor(menu_exibir_menuPlayer[2], 255);
+	TextDrawFont(menu_exibir_menuPlayer[2], 4);
+	TextDrawLetterSize(menu_exibir_menuPlayer[2], 0.500000, 1.000000);
+	TextDrawColor(menu_exibir_menuPlayer[2], 255);
+	TextDrawSetOutline(menu_exibir_menuPlayer[2], 0);
+	TextDrawSetProportional(menu_exibir_menuPlayer[2], 1);
+	TextDrawSetShadow(menu_exibir_menuPlayer[2], 1);
+	TextDrawUseBox(menu_exibir_menuPlayer[2], 1);
+	TextDrawBoxColor(menu_exibir_menuPlayer[2], 255);
+	TextDrawTextSize(menu_exibir_menuPlayer[2], 10.000000, 10.000000);
+	TextDrawSetSelectable(menu_exibir_menuPlayer[2], 0);
+
+	menu_exibir_menuPlayer[3] = TextDrawCreate(520.000000, 110.000000, "LD_BEAT:chit");
+	TextDrawBackgroundColor(menu_exibir_menuPlayer[3], 255);
+	TextDrawFont(menu_exibir_menuPlayer[3], 4);
+	TextDrawLetterSize(menu_exibir_menuPlayer[3], 0.500000, 1.000000);
+	TextDrawColor(menu_exibir_menuPlayer[3], 255);
+	TextDrawSetOutline(menu_exibir_menuPlayer[3], 0);
+	TextDrawSetProportional(menu_exibir_menuPlayer[3], 1);
+	TextDrawSetShadow(menu_exibir_menuPlayer[3], 1);
+	TextDrawUseBox(menu_exibir_menuPlayer[3], 1);
+	TextDrawBoxColor(menu_exibir_menuPlayer[3], 255);
+	TextDrawTextSize(menu_exibir_menuPlayer[3], 10.000000, 10.000000);
+	TextDrawSetSelectable(menu_exibir_menuPlayer[3], 0);
+
+	menu_exibir_menuPlayer[4] = TextDrawCreate(590.000000, 110.000000, "LD_BEAT:chit");
+	TextDrawBackgroundColor(menu_exibir_menuPlayer[4], 255);
+	TextDrawFont(menu_exibir_menuPlayer[4], 4);
+	TextDrawLetterSize(menu_exibir_menuPlayer[4], 0.500000, 1.000000);
+	TextDrawColor(menu_exibir_menuPlayer[4], 255);
+	TextDrawSetOutline(menu_exibir_menuPlayer[4], 0);
+	TextDrawSetProportional(menu_exibir_menuPlayer[4], 1);
+	TextDrawSetShadow(menu_exibir_menuPlayer[4], 1);
+	TextDrawUseBox(menu_exibir_menuPlayer[4], 1);
+	TextDrawBoxColor(menu_exibir_menuPlayer[4], 255);
+	TextDrawTextSize(menu_exibir_menuPlayer[4], 10.000000, 10.000000);
+	TextDrawSetSelectable(menu_exibir_menuPlayer[4], 0);
+
+	menu_exibir_menuPlayer[5] = TextDrawCreate(598.000000, 64.000000, "_");
+	TextDrawBackgroundColor(menu_exibir_menuPlayer[5], 255);
+	TextDrawFont(menu_exibir_menuPlayer[5], 1);
+	TextDrawLetterSize(menu_exibir_menuPlayer[5], 0.500000, 5.799999);
+	TextDrawColor(menu_exibir_menuPlayer[5], -1);
+	TextDrawSetOutline(menu_exibir_menuPlayer[5], 0);
+	TextDrawSetProportional(menu_exibir_menuPlayer[5], 1);
+	TextDrawSetShadow(menu_exibir_menuPlayer[5], 1);
+	TextDrawUseBox(menu_exibir_menuPlayer[5], 1);
+	TextDrawBoxColor(menu_exibir_menuPlayer[5], 255);
+	TextDrawTextSize(menu_exibir_menuPlayer[5], 523.000000, 0.000000);
+	TextDrawSetSelectable(menu_exibir_menuPlayer[5], 0);
+
+	menu_exibir_menuPlayer[6] = TextDrawCreate(600.000000, 68.000000, "_");
+	TextDrawBackgroundColor(menu_exibir_menuPlayer[6], 255);
+	TextDrawFont(menu_exibir_menuPlayer[6], 1);
+	TextDrawLetterSize(menu_exibir_menuPlayer[6], 0.500000, 5.099999);
+	TextDrawColor(menu_exibir_menuPlayer[6], -1);
+	TextDrawSetOutline(menu_exibir_menuPlayer[6], 0);
+	TextDrawSetProportional(menu_exibir_menuPlayer[6], 1);
+	TextDrawSetShadow(menu_exibir_menuPlayer[6], 1);
+	TextDrawUseBox(menu_exibir_menuPlayer[6], 1);
+	TextDrawBoxColor(menu_exibir_menuPlayer[6], 255);
+	TextDrawTextSize(menu_exibir_menuPlayer[6], 520.000000, 0.000000);
+	TextDrawSetSelectable(menu_exibir_menuPlayer[6], 0);
+
+	menu_exibir_menuPlayer[7] = TextDrawCreate(600.000000, 120.000000, "_");
+	TextDrawBackgroundColor(menu_exibir_menuPlayer[7], 255);
+	TextDrawFont(menu_exibir_menuPlayer[7], 1);
+	TextDrawLetterSize(menu_exibir_menuPlayer[7], 0.500000, -0.400000);
+	TextDrawColor(menu_exibir_menuPlayer[7], -1);
+	TextDrawSetOutline(menu_exibir_menuPlayer[7], 0);
+	TextDrawSetProportional(menu_exibir_menuPlayer[7], 1);
+	TextDrawSetShadow(menu_exibir_menuPlayer[7], 1);
+	TextDrawUseBox(menu_exibir_menuPlayer[7], 1);
+	TextDrawBoxColor(menu_exibir_menuPlayer[7], -1);
+	TextDrawTextSize(menu_exibir_menuPlayer[7], 520.000000, 0.000000);
+	TextDrawSetSelectable(menu_exibir_menuPlayer[7], 0);
+
+	menu_exibir_menuPlayer[8] = TextDrawCreate(600.000000, 73.000000, "_");
+	TextDrawBackgroundColor(menu_exibir_menuPlayer[8], 255);
+	TextDrawFont(menu_exibir_menuPlayer[8], 1);
+	TextDrawLetterSize(menu_exibir_menuPlayer[8], 0.500000, 1.599999);
+	TextDrawColor(menu_exibir_menuPlayer[8], -1);
+	TextDrawSetOutline(menu_exibir_menuPlayer[8], 0);
+	TextDrawSetProportional(menu_exibir_menuPlayer[8], 1);
+	TextDrawSetShadow(menu_exibir_menuPlayer[8], 1);
+	TextDrawUseBox(menu_exibir_menuPlayer[8], 1);
+	TextDrawBoxColor(menu_exibir_menuPlayer[8], 3169023);
+	TextDrawTextSize(menu_exibir_menuPlayer[8], 520.000000, 0.000000);
+	TextDrawSetSelectable(menu_exibir_menuPlayer[8], 0);
+
+	menu_exibir_menuPlayer[9] = TextDrawCreate(600.000000, 93.000000, "_");
+	TextDrawBackgroundColor(menu_exibir_menuPlayer[9], 255);
+	TextDrawFont(menu_exibir_menuPlayer[9], 1);
+	TextDrawLetterSize(menu_exibir_menuPlayer[9], 0.500000, 1.599999);
+	TextDrawColor(menu_exibir_menuPlayer[9], -1);
+	TextDrawSetOutline(menu_exibir_menuPlayer[9], 0);
+	TextDrawSetProportional(menu_exibir_menuPlayer[9], 1);
+	TextDrawSetShadow(menu_exibir_menuPlayer[9], 1);
+	TextDrawUseBox(menu_exibir_menuPlayer[9], 1);
+	TextDrawBoxColor(menu_exibir_menuPlayer[9], 3169023);
+	TextDrawTextSize(menu_exibir_menuPlayer[9], 520.000000, 0.000000);
+	TextDrawSetSelectable(menu_exibir_menuPlayer[9], 0);
+
+	menu_exibir_menuPlayer[10] = TextDrawCreate(530.000000, 76.000000, "Configuracoes");
+	TextDrawBackgroundColor(menu_exibir_menuPlayer[10], 255);
+	TextDrawFont(menu_exibir_menuPlayer[10], 2);
+	TextDrawLetterSize(menu_exibir_menuPlayer[10], 0.190000, 0.899999);
+	TextDrawColor(menu_exibir_menuPlayer[10], -1);
+	TextDrawSetOutline(menu_exibir_menuPlayer[10], 0);
+	TextDrawSetProportional(menu_exibir_menuPlayer[10], 1);
+	TextDrawSetShadow(menu_exibir_menuPlayer[10], 0);
+	TextDrawTextSize(menu_exibir_menuPlayer[10], 600.000000, 13.000000);
+	TextDrawSetSelectable(menu_exibir_menuPlayer[10], 1);
+
+	menu_exibir_menuPlayer[11] = TextDrawCreate(551.000000, 96.000000, "Sair");
+	TextDrawBackgroundColor(menu_exibir_menuPlayer[11], 255);
+	TextDrawFont(menu_exibir_menuPlayer[11], 2);
+	TextDrawLetterSize(menu_exibir_menuPlayer[11], 0.190000, 0.899999);
+	TextDrawColor(menu_exibir_menuPlayer[11], -1);
+	TextDrawSetOutline(menu_exibir_menuPlayer[11], 0);
+	TextDrawSetProportional(menu_exibir_menuPlayer[11], 1);
+	TextDrawSetShadow(menu_exibir_menuPlayer[11], 0);
+	TextDrawTextSize(menu_exibir_menuPlayer[11], 600.000000, 13.000000);
+	TextDrawSetSelectable(menu_exibir_menuPlayer[11], 1);
+	return 1;
+}
+
+hook OnPlayerConnect(playerid)
+{
+	/* Cria a base das textdraws. */
+	menu_base_player[playerid][0] = CreatePlayerTextDraw(playerid, 511.000000, 49.000000, "aguarde...");
+	PlayerTextDrawBackgroundColor(playerid, menu_base_player[playerid][0], 255);
+	PlayerTextDrawFont(playerid, menu_base_player[playerid][0], 2);
+	PlayerTextDrawLetterSize(playerid, menu_base_player[playerid][0], 0.170000, 1.200000);
+	PlayerTextDrawColor(playerid, menu_base_player[playerid][0], -1);
+	PlayerTextDrawSetOutline(playerid, menu_base_player[playerid][0], 0);
+	PlayerTextDrawSetProportional(playerid, menu_base_player[playerid][0], 1);
+	PlayerTextDrawSetShadow(playerid, menu_base_player[playerid][0], 0);
+	PlayerTextDrawSetSelectable(playerid, menu_base_player[playerid][0], 0);
+
+	menu_base_player[playerid][1] = CreatePlayerTextDraw(playerid, 511.000000, 58.000000, "aguarde...");
+	PlayerTextDrawBackgroundColor(playerid, menu_base_player[playerid][1], 255);
+	PlayerTextDrawFont(playerid, menu_base_player[playerid][1], 2);
+	PlayerTextDrawLetterSize(playerid, menu_base_player[playerid][1], 0.120000, 0.800000);
+	PlayerTextDrawColor(playerid, menu_base_player[playerid][1], -1);
+	PlayerTextDrawSetOutline(playerid, menu_base_player[playerid][1], 0);
+	PlayerTextDrawSetProportional(playerid, menu_base_player[playerid][1], 1);
+	PlayerTextDrawSetShadow(playerid, menu_base_player[playerid][1], 0);
+	PlayerTextDrawSetSelectable(playerid, menu_base_player[playerid][1], 0);
+	return 1;
+}
+
+hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
+{
+	switch(dialogid)
+	{
+		case skin_select:
+		{
+			if(!response) return 0;
+			if(!IsNumeric(inputtext)) return ShowPlayerDialog(playerid, skin_select, DIALOG_STYLE_INPUT, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+				"{FFFFFF}Coloque aqui o id de sua skin prefirida:\n{FF0000}Sua skin só pode conter numeros, do 0 ao 311:", "Selecione", "Fechar");
+			new Skin_Selected = strval(inputtext);
+			if(Skin_Selected < 0 || Skin_Selected > 311) return ShowPlayerDialog(playerid, skin_select, DIALOG_STYLE_INPUT, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+				"{FFFFFF}Coloque aqui o id de sua skin prefirida:\n{FF0000}Skin invalida, selecione uma que esteja entre 0 e 311:", "Selecione", "Fechar");
+			pInfo[playerid][skin] = Skin_Selected;
+
+			TextDrawSetPreviewModel(menu_configuracoes[5], pInfo[playerid][skin]);
+			TextDrawHideForPlayer(playerid, menu_configuracoes[5]);
+			TextDrawShowForPlayer(playerid, menu_configuracoes[5]);
+			ShowPlayerDialog(playerid, nulldialog, DIALOG_STYLE_MSGBOX, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+				"{FFFFFF}Sua skin foi alterada com sucesso!", "Obrigado", "");
+			return 1;
+		}
+		case alterar_nick:
+		{
+			if(!response) return 0;
+			if(~strfind(inputtext, ";") || ~strfind(inputtext, "--")) return ShowPlayerDialog(playerid, alterar_nick, DIALOG_STYLE_INPUT, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+			"{FFFFFF}Coloque aqui seu novo nick\n\
+			{FF0000}O seu nick não deve conter caracteres invalidos:", "Confirmar", "Cancelar");		
+
+			if(4 < strlen(inputtext) < 24) SetPlayerName(playerid, inputtext);
+			else ShowPlayerDialog(playerid, alterar_nick, DIALOG_STYLE_INPUT, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+			"{FFFFFF}Coloque aqui seu novo nick\n\
+			{FF0000}O seu nick deve conter entre 5 a 24 caracteres:", "Confirmar", "Cancelar");	
+
+			PlayerTextDrawSetString(playerid, menu_base_player[playerid][0], GetPlayerName(playerid));
+
+			ShowPlayerDialog(playerid, nulldialog, DIALOG_STYLE_MSGBOX, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+				"{FFFFFF}Nick alterado com sucesso!", "Ok", "");
+
+			new string[45+MAX_PLAYER_NAME+2+2+4+2+2+2+1];
+
+			new dia, mes, ano, hora, minuto, segundo;
+			getdate(ano,mes,dia);
+			gettime(hora,minuto,segundo);
+
+			format(string, sizeof(string), "Você alterou o seu nick para %s no dia %d/%d/%d às %d:%d:%d", GetPlayerName(playerid), dia,mes,ano,hora,minuto,segundo);
+			SendEmail("noreply@h1z1samp.com.br", pInfo[playerid][email], "Nick", string);  
+			return 1;
+		}
+		case alterar_senha:
+		{
+			if(!response) return 0;
+			if(~strfind(inputtext, ";") || ~strfind(inputtext, "--")) return ShowPlayerDialog(playerid, LoginName, DIALOG_STYLE_INPUT, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+			"{FFFFFF}Coloque uma nova senha segura\n\
+			{FF0000}A sua senha nao deve conter caracteres invalidos:", "Confirmar", "Cancelar");		
+
+			if(4 < strlen(inputtext) < 24)
+			{
+				new passsalt[11];
+				for(new i; i < 10; i++)
+				{
+					passsalt[i] = random(79) + 47;
+				}
+				passsalt[10] = 0;
+
+				new PasswordPlayer[65];
+				SHA256_PassHash(inputtext, passsalt, PasswordPlayer, 65);
+
+				new query[56+65+11+24+1];
+		  		format(query, sizeof(query), "UPDATE `contas` SET `senha`='%q',`salt`='%q' WHERE `nome`='%q'", PasswordPlayer, passsalt, GetPlayerName(playerid));
+		  		db_query(Connect, query);
+
+		  		ShowPlayerDialog(playerid, nulldialog, DIALOG_STYLE_MSGBOX, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+					"{FFFFFF}Sua senha foi alterada com sucesso!", "Ok", "");
+
+
+				new string[100+2+2+2+2+2+2+1];
+
+				new dia, mes, ano, hora, minuto, segundo;
+				getdate(ano,mes,dia);
+				gettime(hora,minuto,segundo);
+
+				format(string, sizeof(string), "Sua senha foi alterada no dia %d/%d/%d às %d:%d:%d, caso não tenha sido você pedimos que reporte em nosso fórum.", dia,mes,ano,hora,minuto,segundo);
+				SendEmail("noreply@h1z1samp.com.br", pInfo[playerid][email], "Senha", string);  
+
+				return 1;
+			}
+			else ShowPlayerDialog(playerid, LoginName, DIALOG_STYLE_INPUT, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+			"{FFFFFF}Coloque a sua senha\n\
+			{FF0000}A sua senha deve conter entre 5 a 24 caracteres:", "Confirmar", "Cancelar");
+			return 1;
+		}
+		case alterar_email:
+		{
+			if(!response) return 0;
+			if(~strfind(inputtext, ";") || ~strfind(inputtext, "--")) return ShowPlayerDialog(playerid, RegisterMail, DIALOG_STYLE_INPUT, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+			"{FFFFFF}Coloque um novo email\n\
+			{FF0000}Seu email nao pode conter caracteres invalidos:", "Confirmar", "Cancelar");
+
+			new query[43+32], DBResult:Result;
+			format(query, sizeof(query), "SELECT `id` FROM `contas` WHERE `email` = '%q'", inputtext);
+			Result = db_query(Connect, query);
+
+			if(db_num_rows(Result) == 1) return ShowPlayerDialog(playerid, RegisterMail, DIALOG_STYLE_INPUT, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+				"{FFFFFF}Coloque um novo email\n\
+				{FF0000}Este e-mail já esta sendo usado, tente outro:", "Confirmar", "Cancelar");
+
+			else 
+			{
+				if(15 < strlen(inputtext) < 32 && strfind(inputtext , "@") > 0)
+				{
+					format(pInfo[playerid][email], 32, "%s", inputtext);
+					ShowPlayerDialog(playerid, nulldialog, DIALOG_STYLE_MSGBOX, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+						"{FFFFFF}E-mail alterado com sucesso!", "Ok", "");
+				}
+				else ShowPlayerDialog(playerid, RegisterMail, DIALOG_STYLE_INPUT, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+				"{FFFFFF}Coloque um novo email:\n\
+				{FF0000}Seu email deve conter entre 15 e 32 caracteres:", "Confirmar", "Cancelar");
+			}
+			db_free_result(Result);	
+			return 1;
+		}
+	}
+	return 1;
+}
+
+hook OnPlayerClickTextDraw(playerid, Text:clickedid)
+{
+	if(_:clickedid == INVALID_TEXT_DRAW)
+	{
+		//if(GetPVarInt(playerid, "tela_player_menu") != 0) return SelectTextDraw(playerid, 0xFFFFFFFF);
+		return 1;
+	}
+
+	/* Index */
+	if(clickedid == menu_index[16])
+	{
+		EnterRoom(playerid);
+		return 1;
+	}
+	if(clickedid == menu_index[17])
+	{
+		ShowPlayerDialog(playerid, nulldialog, DIALOG_STYLE_MSGBOX, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+			"{FFFFFF}O modo de jogo Battle Royale, em grupo ainda está em contrução. Mais fique tranquilo,\n\
+			porque daqui alguns dias você poderá jogar com seus amigos, montando a sua \"gangue\" :)", "Ok", "");
+		return 1;
+	}
+	if(clickedid == menu_index[22])
+	{
+		ShowPlayerDialog(playerid, nulldialog, DIALOG_STYLE_MSGBOX, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+			"{FFFFFF}Sim, em breve o {FF0000}modo sobrevivência{FFFFFF} chegará ao nosso servidor de um jeito como você\nnunca viu antes,\
+			tentando simular o maximo da vida de um sobrevivente pós-apocalíptico.\nEnquanto este modo não sai, divirta-se jogando em nosso Battle Royale.", "Ok", "");
+		return 1;
+	}
+
+
+	if(clickedid == menu_base[7])
+	{
+		if(GetPVarInt(playerid, "tela_player_menu") == 3) return 0;
+		ShowMenu(playerid, 3);
+		return 1;
+	}
+	if(clickedid == menu_exibir_menuPlayer[0])
+	{
+		HideMenu(playerid, 3);
+		return 1;
+	}
+
+	if(clickedid == menu_exibir_menuPlayer[10]) // Configuracoes
+	{
+		HideMenu(playerid, 2);
+		HideMenu(playerid, 3);
+		ShowMenu(playerid, 4);
+		return 1;
+	}
+	if(clickedid == menu_configuracoes[7])
+	{
+		ShowPlayerDialog(playerid, skin_select, DIALOG_STYLE_INPUT, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+			"{FFFFFF}Coloque aqui o id de sua skin prefirida:", "Selecione", "Fechar");
+		return 1;
+	}
+	if(clickedid == menu_configuracoes[11])
+	{
+		ShowPlayerDialog(playerid, alterar_nick, DIALOG_STYLE_INPUT, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+			"{FFFFFF}Coloque aqui seu novo nick:", "Confirmar", "Fechar");
+		return 1;
+	}
+	if(clickedid == menu_configuracoes[12])
+	{
+		ShowPlayerDialog(playerid, alterar_senha, DIALOG_STYLE_INPUT, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+			"{FFFFFF}Coloque uma nova senha segura:", "Confirmar", "Fechar");
+		return 1;
+	}
+	if(clickedid == menu_configuracoes[13])
+	{
+		ShowPlayerDialog(playerid, alterar_email, DIALOG_STYLE_INPUT, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+			"{FFFFFF}Coloque um novo email:", "Confirmar", "Fechar");
+		return 1;
+	}
+	if(clickedid == menu_configuracoes[3])
+	{
+		HideMenu(playerid, 4);
+		ShowMenu(playerid, 2);
+		return 1;
+	}
+
+
+	if(clickedid == menu_exibir_menuPlayer[11]) // Sair
+	{
+		HideMenu(playerid, 1);
+		ShowPlayerDialog(playerid, nulldialog, DIALOG_STYLE_MSGBOX, "{FFFFFF}H1{FF0000}Z{FFFFFF}1", 
+			"{FF0000}Até mais,{FFFFFF} esperamos ver você em breve :)", "Obrigado(a)!", "");
+		Kick(playerid);
+		return 1;
+	}
+	return 1;
+}
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+ShowMenu(playerid, menuid)
+{
+	switch(menuid)
+	{
+		case 1: // Base do menu.
+		{
+			for(new i = 0; i < 11; i++) TextDrawShowForPlayer(playerid, menu_base[i]);
+			for(new i = 0; i < 2; i++) PlayerTextDrawShow(playerid, menu_base_player[playerid][i]);
+
+			new setstrings[40];
+
+			format(setstrings, 40, "%s", GetPlayerName(playerid));
+			PlayerTextDrawSetString(playerid, menu_base_player[playerid][0], setstrings);
+
+			switch(pInfo[playerid][admin])
+			{
+				case 0:
+				{
+					if(pInfo[playerid][vip] == true)
+					{
+						format(setstrings, 40, "~p~VIP");
+					}
+					else format(setstrings, 40, "~w~Jogador");
+				}
+				case 1: format(setstrings, 40, "~y~Ajudante");
+				case 2: format(setstrings, 40, "~r~~h~~h~Moderador");
+				case 3: format(setstrings, 40, "~b~~h~~h~Administrador");
+				case 4: format(setstrings, 40, "~g~desenvolvedor");
+			}
+			PlayerTextDrawSetString(playerid, menu_base_player[playerid][1], setstrings);
+
+			ShowMenu(playerid, 2); // Automaticamente quando ele carrega a base do menu, ele exibe a index do mesmo.
+			SelectTextDraw(playerid, 0xFFFFFFFF);
+			SetPVarInt(playerid, "tela_player_menu", 1);
+			return 1;
+		}
+		case 2: // Index do menu.
+		{
+			for(new i = 0; i < 23; i++) TextDrawShowForPlayer(playerid, menu_index[i]);
+			SetPVarInt(playerid, "tela_player_menu", 2);
+			return 1;
+		}
+		case 3: // Exibe o "menu do player"
+		{
+			TextDrawHideForPlayer(playerid, menu_base[7]);
+			TextDrawHideForPlayer(playerid, menu_base[8]);
+			for(new i = 0; i < 12; i++) TextDrawShowForPlayer(playerid, menu_exibir_menuPlayer[i]);
+			PlayerTextDrawHide(playerid, menu_base_player[playerid][1]);
+			SetPVarInt(playerid, "tela_player_menu", 3);
+			return 1;
+		}
+		case 4: // configurações
+		{
+			for(new i = 0; i < 15; i++) TextDrawShowForPlayer(playerid, menu_configuracoes[i]);
+			TextDrawSetPreviewModel(menu_configuracoes[5], pInfo[playerid][skin]);
+			TextDrawHideForPlayer(playerid, menu_configuracoes[5]);
+			TextDrawShowForPlayer(playerid, menu_configuracoes[5]);
+			SetPVarInt(playerid, "tela_player_menu", 4);
+			return 1;
+		}
+		case 5: // Opção Battle Royale.
+		{
+			SetPVarInt(playerid, "tela_player_menu", 5);
+			return 1;
+		}
+	}
+	return 1;
+}
+
+HideMenu(playerid, menuid)
+{
+	SetPVarInt(playerid, "tela_player_menu", 0);
+	switch(menuid)
+	{
+		case 1: // Base do menu.
+		{
+			for(new i = 0; i < 11; i++) TextDrawHideForPlayer(playerid, menu_base[i]);
+			for(new i = 0; i < 2; i++) PlayerTextDrawHide(playerid, menu_base_player[playerid][i]);
+			HideMenu(playerid, 2);
+			HideMenu(playerid, 3);
+			HideMenu(playerid, 4);
+			TextDrawHideForPlayer(playerid, menu_base[7]);
+			TextDrawHideForPlayer(playerid, menu_base[8]);
+			PlayerTextDrawHide(playerid, menu_base_player[playerid][0]);
+			PlayerTextDrawHide(playerid, menu_base_player[playerid][1]);
+			return 1;
+		}
+		case 2: // Index do menu.
+		{
+			for(new i = 0; i < 23; i++) TextDrawHideForPlayer(playerid, menu_index[i]);
+			return 1;
+		}
+		case 3: // Exibe o "menu do player"
+		{
+			TextDrawShowForPlayer(playerid, menu_base[7]);
+			TextDrawShowForPlayer(playerid, menu_base[8]);
+			for(new i = 0; i < 12; i++) TextDrawHideForPlayer(playerid, menu_exibir_menuPlayer[i]);
+			PlayerTextDrawShow(playerid, menu_base_player[playerid][1]);
+			return 1;
+		}
+		case 4: // configurações
+		{
+			for(new i = 0; i < 15; i++) TextDrawHideForPlayer(playerid, menu_configuracoes[i]);
+			return 1;
+		}
+		case 5: // Opção Battle Royale.
+		{
+			return 1;
+		}
+	}
+	return 1;
+}

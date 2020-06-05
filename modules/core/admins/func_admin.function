@@ -1,0 +1,58 @@
+ /*
+
+
+
+
+
+
+
+                                                 _       _     _    _________     _
+                                                | |     | |   / |  |______  /    / |
+                                                | |     | |  /  |        / /    /  |
+                                                | |     | | / / |       / /    / / |
+                                                | |_____| |/_/| |      / /    /_/| |
+                                                |  _____  |   | |     / /        | |
+                                                | |     | |   | |    / /         | |
+                                                | |     | |   | |   / /          | |
+                                                | |     | | __| |__/ /______   __| |__
+                                                |_|     |_||______/_________| |_______|
+
+                                                            Battle Royale
+
+*/
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+getAdmin(playerid, color = 0)
+{
+    new cAdmin1[25];
+    if(color == 0)
+    {
+        switch(pInfo[playerid][admin])
+        {
+            case 0: cAdmin1 = "Jogador(a)";
+            case 1: cAdmin1 = "Ajudante";
+            case 2: cAdmin1 = "Moderador(a)";
+            case 3: cAdmin1 = "Administrador(a)";
+            case 4: cAdmin1 = "Desenvolvedor(a)";
+        }
+    }
+    else
+    {
+        switch(pInfo[playerid][admin])
+        {
+            case 0: cAdmin1 = "{FFFFFF}Jogador(a)";
+            case 1: cAdmin1 = "{F3EF03}Ajudante";
+            case 2: cAdmin1 = "{F3A70E}Moderador(a)";
+            case 3: cAdmin1 = "{2DDAC3}Administrador(a)";
+            case 4: cAdmin1 = "{24DE43}Desenvolvedor(a)";
+        }
+    }
+    return cAdmin1;
+}
+
+
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------

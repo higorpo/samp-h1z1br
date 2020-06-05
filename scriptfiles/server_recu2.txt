@@ -1,0 +1,141 @@
+// TextDraw developed using Zamaroht's Textdraw Editor 1.0
+
+// On top of script:
+new Text:Textdraw0;
+new Text:Textdraw1;
+new Text:Textdraw2;
+new Text:Textdraw3;
+new Text:Textdraw4;
+new Text:Textdraw5;
+new Text:Textdraw6;
+new Text:Textdraw7;
+new Text:Textdraw8;
+new Text:Textdraw9;
+new Text:Textdraw10;
+
+// In OnGameModeInit prefferably, we procced to create our textdraws:
+Textdraw0 = TextDrawCreate(305.000000, 60.000000, "Z");
+TextDrawBackgroundColor(Textdraw0, 1509949695);
+TextDrawFont(Textdraw0, 1);
+TextDrawLetterSize(Textdraw0, 1.299999, 7.000000);
+TextDrawColor(Textdraw0, 1931945983);
+TextDrawSetOutline(Textdraw0, 0);
+TextDrawSetProportional(Textdraw0, 1);
+TextDrawSetShadow(Textdraw0, 1);
+TextDrawSetSelectable(Textdraw0, 0);
+
+Textdraw1 = TextDrawCreate(260.000000, 70.000000, "H1");
+TextDrawBackgroundColor(Textdraw1, 1802202111);
+TextDrawFont(Textdraw1, 1);
+TextDrawLetterSize(Textdraw1, 1.200000, 5.000000);
+TextDrawColor(Textdraw1, -252645121);
+TextDrawSetOutline(Textdraw1, 0);
+TextDrawSetProportional(Textdraw1, 1);
+TextDrawSetShadow(Textdraw1, 1);
+TextDrawSetSelectable(Textdraw1, 0);
+
+Textdraw2 = TextDrawCreate(330.000000, 70.000000, "1");
+TextDrawBackgroundColor(Textdraw2, 1802202111);
+TextDrawFont(Textdraw2, 1);
+TextDrawLetterSize(Textdraw2, 1.200000, 5.000000);
+TextDrawColor(Textdraw2, -252645121);
+TextDrawSetOutline(Textdraw2, 0);
+TextDrawSetProportional(Textdraw2, 1);
+TextDrawSetShadow(Textdraw2, 1);
+TextDrawSetSelectable(Textdraw2, 0);
+
+Textdraw3 = TextDrawCreate(410.000000, 130.000000, "_");
+TextDrawBackgroundColor(Textdraw3, 255);
+TextDrawFont(Textdraw3, 1);
+TextDrawLetterSize(Textdraw3, 0.500000, 25.000000);
+TextDrawColor(Textdraw3, -1);
+TextDrawSetOutline(Textdraw3, 0);
+TextDrawSetProportional(Textdraw3, 1);
+TextDrawSetShadow(Textdraw3, 1);
+TextDrawUseBox(Textdraw3, 1);
+TextDrawBoxColor(Textdraw3, 1802201991);
+TextDrawTextSize(Textdraw3, 200.000000, 0.000000);
+TextDrawSetSelectable(Textdraw3, 0);
+
+Textdraw4 = TextDrawCreate(284.000000, 239.000000, "Proximo");
+TextDrawBackgroundColor(Textdraw4, 255);
+TextDrawFont(Textdraw4, 2);
+TextDrawLetterSize(Textdraw4, 0.259999, 1.499997);
+TextDrawColor(Textdraw4, -1);
+TextDrawSetOutline(Textdraw4, 0);
+TextDrawSetProportional(Textdraw4, 1);
+TextDrawSetShadow(Textdraw4, 0);
+TextDrawSetSelectable(Textdraw4, 0);
+
+Textdraw5 = TextDrawCreate(224.000000, 150.000000, "-");
+TextDrawBackgroundColor(Textdraw5, 1509949695);
+TextDrawFont(Textdraw5, 2);
+TextDrawLetterSize(Textdraw5, 13.000000, 1.799998);
+TextDrawColor(Textdraw5, -1);
+TextDrawSetOutline(Textdraw5, 0);
+TextDrawSetProportional(Textdraw5, 1);
+TextDrawSetShadow(Textdraw5, 0);
+TextDrawSetSelectable(Textdraw5, 0);
+
+Textdraw6 = TextDrawCreate(383.000000, 212.000000, "_");
+TextDrawBackgroundColor(Textdraw6, 255);
+TextDrawFont(Textdraw6, 2);
+TextDrawLetterSize(Textdraw6, 0.300000, 1.399999);
+TextDrawColor(Textdraw6, -1);
+TextDrawSetOutline(Textdraw6, 0);
+TextDrawSetProportional(Textdraw6, 1);
+TextDrawSetShadow(Textdraw6, 0);
+TextDrawUseBox(Textdraw6, 1);
+TextDrawBoxColor(Textdraw6, -454761217);
+TextDrawTextSize(Textdraw6, 230.000000, 0.000000);
+TextDrawSetSelectable(Textdraw6, 0);
+
+Textdraw7 = TextDrawCreate(232.000000, 189.000000, "Codigo que voce recebeu no~n~seu e-mail");
+TextDrawBackgroundColor(Textdraw7, 255);
+TextDrawFont(Textdraw7, 2);
+TextDrawLetterSize(Textdraw7, 0.219999, 0.899999);
+TextDrawColor(Textdraw7, -454761217);
+TextDrawSetOutline(Textdraw7, 0);
+TextDrawSetProportional(Textdraw7, 1);
+TextDrawSetShadow(Textdraw7, 0);
+TextDrawSetSelectable(Textdraw7, 0);
+
+Textdraw8 = TextDrawCreate(305.000000, 214.000000, "]]]]]]");
+TextDrawAlignment(Textdraw8, 2);
+TextDrawBackgroundColor(Textdraw8, 255);
+TextDrawFont(Textdraw8, 2);
+TextDrawLetterSize(Textdraw8, 0.219999, 0.899999);
+TextDrawColor(Textdraw8, 255);
+TextDrawSetOutline(Textdraw8, 0);
+TextDrawSetProportional(Textdraw8, 1);
+TextDrawSetShadow(Textdraw8, 0);
+TextDrawSetSelectable(Textdraw8, 0);
+
+Textdraw9 = TextDrawCreate(344.000000, 234.000000, "_");
+TextDrawBackgroundColor(Textdraw9, 255);
+TextDrawFont(Textdraw9, 2);
+TextDrawLetterSize(Textdraw9, 0.300000, 3.400000);
+TextDrawColor(Textdraw9, -1);
+TextDrawSetOutline(Textdraw9, 0);
+TextDrawSetProportional(Textdraw9, 1);
+TextDrawSetShadow(Textdraw9, 0);
+TextDrawUseBox(Textdraw9, 1);
+TextDrawBoxColor(Textdraw9, 1509949695);
+TextDrawTextSize(Textdraw9, 271.000000, 0.000000);
+TextDrawSetSelectable(Textdraw9, 0);
+
+Textdraw10 = TextDrawCreate(343.000000, 232.000000, "_");
+TextDrawBackgroundColor(Textdraw10, 255);
+TextDrawFont(Textdraw10, 2);
+TextDrawLetterSize(Textdraw10, 0.300000, 3.400000);
+TextDrawColor(Textdraw10, -1);
+TextDrawSetOutline(Textdraw10, 0);
+TextDrawSetProportional(Textdraw10, 1);
+TextDrawSetShadow(Textdraw10, 0);
+TextDrawUseBox(Textdraw10, 1);
+TextDrawBoxColor(Textdraw10, 1931945983);
+TextDrawTextSize(Textdraw10, 270.000000, 0.000000);
+TextDrawSetSelectable(Textdraw10, 0);
+
+// You can now use TextDrawShowForPlayer(-ForAll), TextDrawHideForPlayer(-ForAll) and
+// TextDrawDestroy functions to show, hide, and destroy the textdraw.

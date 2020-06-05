@@ -1,0 +1,66 @@
+ /*
+
+
+
+
+
+
+
+                                                 _       _     _    _________     _
+                                                | |     | |   / |  |______  /    / |
+                                                | |     | |  /  |        / /    /  |
+                                                | |     | | / / |       / /    / / |
+                                                | |_____| |/_/| |      / /    /_/| |
+                                                |  _____  |   | |     / /        | |
+                                                | |     | |   | |    / /         | |
+                                                | |     | |   | |   / /          | |
+                                                | |     | | __| |__/ /______   __| |__
+                                                |_|     |_||______/_________| |_______|
+
+                                                            Battle Royale
+
+*/
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+/* Includes necessárias para o funcionamento do script */
+    #include <YSI\y_hooks>
+
+
+
+/* Definições/Variaveis */
+// > variaveis
+    new Random_Messages[][] =
+    {
+        "Coloque uma mensagem aqui",
+        "Coloque uma mensagem aqui",
+        "Coloque uma mensagem aqui"
+    };
+
+
+// > forwards
+    forward timer_random_messages();
+
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+hook OnGameModeInit()
+{
+    SetTimer("timer_random_messages", 60000*5, true);
+    return 1;
+}
+
+public timer_random_messages()
+{
+    new string[128];
+    new randMSG = random(sizeof(Random_Messages)); 
+    format(string, sizeof(string), "| H1Z1 | %s", Random_Messages[randMSG]);
+    SendClientMessageToAll(Verde, string);
+    return 1;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------

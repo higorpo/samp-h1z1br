@@ -1,0 +1,44 @@
+ /*
+
+
+
+
+
+
+
+												 _       _     _    _________     _
+												| |     | |   / |  |______  /    / |
+												| |     | |  /  |        / /    /  |
+												| |     | | / / |       / /    / / |
+												| |_____| |/_/| |      / /    /_/| |
+												|  _____  |   | |     / /        | |
+												| |     | |   | |    / /         | |
+												| |     | |   | |   / /          | |
+												| |     | | __| |__/ /______   __| |__
+												|_|     |_||______/_________| |_______|
+
+															Battle Royale
+
+*/
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+GenerateVehicles(vehsalaid)
+{
+	for(new i = 0; i < 6; i++)
+	{
+		new random_pos = random(sizeof(random_cars_create));
+		new random_veh = random(sizeof(random_vehicle));
+		vehicle_rooms[vehsalaid][i] = CreateVehicle(random_vehicle[random_veh][0], random_cars_create[random_pos][0], random_cars_create[random_pos][1], random_cars_create[random_pos][2], -1, -1, -1, -1);
+		UpdateVehicleDamageStatus(vehicle_rooms[vehsalaid][i], encode_panels(random(4), random(4), random(4), random(4), random(4), random(4), random(4)),
+	        encode_doors(random(5), random(5), random(5), random(5), random(5), random(5)), encode_lights(random(2), random(2), random(2), random(2)),
+	        encode_tires(random(2), random(2), random(2), random(2)));
+		SetVehicleVirtualWorld(vehicle_rooms[vehsalaid][i], vehsalaid + 1);
+
+		printf("veiculo id %d criado %d em %f - %f - %f, virtual world %d", vehicle_rooms[vehsalaid][i], random_vehicle[random_veh], random_cars_create[random_pos][0], random_cars_create[random_pos][1], random_cars_create[random_pos][2], random_cars_create[random_pos][3], vehicle_rooms[vehsalaid][i]);
+	}
+
+	return 1;
+}

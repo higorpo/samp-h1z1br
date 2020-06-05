@@ -1,0 +1,92 @@
+ /*
+
+
+
+
+
+
+
+												 _       _     _    _________     _
+												| |     | |   / |  |______  /    / |
+												| |     | |  /  |        / /    /  |
+												| |     | | / / |       / /    / / |
+												| |_____| |/_/| |      / /    /_/| |
+												|  _____  |   | |     / /        | |
+												| |     | |   | |    / /         | |
+												| |     | |   | |   / /          | |
+												| |     | | __| |__/ /______   __| |__
+												|_|     |_||______/_________| |_______|
+
+															Battle Royale
+
+*/
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+/* Includes necessárias para o funcionamento do script */
+	#include <YSI\y_hooks>
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+hook OnGameModeInit()
+{
+	hud[0] = TextDrawCreate(34.000000, 332.000000, "LD_POOL:ball");
+	TextDrawBackgroundColor(hud[0], 255);
+	TextDrawFont(hud[0], 4);
+	TextDrawLetterSize(hud[0], 0.500000, 1.000000);
+	TextDrawColor(hud[0], 993737727);
+	TextDrawSetOutline(hud[0], 0);
+	TextDrawSetProportional(hud[0], 1);
+	TextDrawSetShadow(hud[0], 1);
+	TextDrawUseBox(hud[0], 1);
+	TextDrawBoxColor(hud[0], 90);
+	TextDrawTextSize(hud[0], 107.000000, 101.000000);
+	TextDrawSetSelectable(hud[0], 0);
+
+	hud[1] = TextDrawCreate(53.000000, 363.000000, "~w~H1~r~Z~w~1");
+	TextDrawBackgroundColor(hud[1], 757935615);
+	TextDrawFont(hud[1], 1);
+	TextDrawLetterSize(hud[1], 0.899999, 3.000000);
+	TextDrawColor(hud[1], -1);
+	TextDrawSetOutline(hud[1], 1);
+	TextDrawSetProportional(hud[1], 1);
+	TextDrawSetSelectable(hud[1], 0);
+
+	hud[2] = TextDrawCreate(60.000000, 385.000000, "Battle Royale");
+	TextDrawBackgroundColor(hud[2], 757935615);
+	TextDrawFont(hud[2], 1);
+	TextDrawLetterSize(hud[2], 0.239999, 1.399999);
+	TextDrawColor(hud[2], -1);
+	TextDrawSetOutline(hud[2], 1);
+	TextDrawSetProportional(hud[2], 1);
+	TextDrawSetSelectable(hud[2], 0);
+
+	hud[3] = TextDrawCreate(498.000000, 76.000000, "~r~$00000000");
+	TextDrawBackgroundColor(hud[3], 255);
+	TextDrawFont(hud[3], 3);
+	TextDrawLetterSize(hud[3], 0.589999, 2.399998);
+	TextDrawColor(hud[3], -1);
+	TextDrawSetOutline(hud[3], 1);
+	TextDrawSetProportional(hud[3], 1);
+	TextDrawSetSelectable(hud[3], 0);
+	return 1;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+ShowHudForPlayer(playerid)
+{
+	for(new i = 0; i < 4; i++) TextDrawShowForPlayer(playerid, hud[i]);
+	return 1;
+}
+
+HideHudForPlayer(playerid)
+{
+	for(new i = 0; i < 4; i++) TextDrawHideForPlayer(playerid, hud[i]);
+	return 1;
+}

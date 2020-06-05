@@ -1,0 +1,86 @@
+ /*
+
+
+
+
+
+
+
+												 _       _     _    _________     _
+												| |     | |   / |  |______  /    / |
+												| |     | |  /  |        / /    /  |
+												| |     | | / / |       / /    / / |
+												| |_____| |/_/| |      / /    /_/| |
+												|  _____  |   | |     / /        | |
+												| |     | |   | |    / /         | |
+												| |     | |   | |   / /          | |
+												| |     | | __| |__/ /______   __| |__
+												|_|     |_||______/_________| |_______|
+
+															Battle Royale
+
+*/
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+/* Includes necessárias para o bom funcionamento do script */
+#include <YSI\y_hooks>
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+hook OnVehicleSpawn(vehicleid)
+{
+	SetVehicleLights(vehicleid, false);
+	return 1;
+}
+
+hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
+{
+	if(newkeys == KEY_CTRL_BACK && IsPlayerInAnyVehicle(playerid)) // tecla "r"
+	{
+		new veh = GetPlayerVehicleID(playerid);
+		if(GetVehicleStatusLights(veh))
+		{
+			SetVehicleLights(veh, false);
+			SendClientMessage(playerid, Verde, "| INFO | Farois do veiculo desligados com sucesso!");
+		}
+		else 
+		{
+			SetVehicleLights(veh, true);
+			SendClientMessage(playerid, Verde, "| INFO | Farois do veiculo ligados com sucesso!");
+		}
+		return 1;
+	}
+	return 1;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+
+SetVehicleLights(vehicleid, bool:value)
+{
+	new engine, lights, alarm, doors, bonnet, boot, objective;
+    GetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, bonnet, boot, objective);
+	if(value == true)
+	{
+		SetVehicleParamsEx(vehicleid, engine, VEHICLE_PARAMS_ON, alarm, doors, bonnet, boot, objective);
+		VehicleInfo[vehicleid][luzes] = true;
+	}
+	else
+	{
+		SetVehicleParamsEx(vehicleid, engine, VEHICLE_PARAMS_OFF, alarm, doors, bonnet, boot, objective);
+		VehicleInfo[vehicleid][luzes] = false;
+	}
+	return 1;
+}
+
+GetVehicleStatusLights(vehicleid)
+{
+    if(VehicleInfo[vehicleid][luzes] == true) return 1;
+    	else return 0;
+}
